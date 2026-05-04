@@ -46,7 +46,7 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
       )}
 
       {/* Image Container - larger and more prominent */}
-      <div className="relative w-full aspect-[3/4] bg-gradient-to-b from-secondary to-secondary/80 overflow-hidden flex-shrink-0">
+      <div className="relative w-full aspect-[3/4] sm:aspect-[3/4] bg-gradient-to-b from-secondary to-secondary/80 overflow-hidden flex-shrink-0">
         <motion.img
           src={product.image || PLACEHOLDER}
           alt={product.title}
@@ -58,7 +58,7 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
         
         {/* Disclaimer overlay - more prominent */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[11px] text-center py-2 font-medium"
+          className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[10px] sm:text-[11px] text-center py-2 font-medium"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -69,24 +69,24 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
 
       {/* Content - grows to fill remaining space */}
       <motion.div
-        className="p-4 sm:p-5 flex flex-col flex-grow"
+        className="p-3 sm:p-5 flex flex-col flex-grow"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.15, duration: 0.3 }}
       >
         {/* Title */}
-        <h3 className="font-bold text-sm sm:text-base text-foreground leading-snug mb-3 line-clamp-2">
+        <h3 className="font-bold text-xs sm:text-base text-foreground leading-snug mb-2 sm:mb-3 line-clamp-2">
           {product.title}
         </h3>
 
         {/* Divider */}
-        <div className="h-px bg-border/50 mb-3" />
+        <div className="h-px bg-border/50 mb-2 sm:mb-3" />
 
         {/* Pricing */}
-        <div className="space-y-2 mb-4 flex-grow">
+        <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 flex-grow">
           <div className="flex items-baseline gap-2">
             <motion.span
-              className="text-2xl sm:text-3xl font-black text-foreground"
+              className="text-xl sm:text-3xl font-black text-foreground"
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -94,17 +94,17 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
               ₪{displayPrice.toLocaleString()}
             </motion.span>
           </div>
-          <span className="text-xs text-muted-foreground block">שווי המתנה</span>
+          <span className="text-[10px] sm:text-xs text-muted-foreground block">שווי המתנה</span>
           
           {employeeView && (
             <motion.div
-              className="inline-flex items-center gap-1.5 bg-green-50 px-3 py-1.5 rounded-full mt-2"
+              className="inline-flex items-center gap-1 sm:gap-1.5 bg-green-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full mt-1.5 sm:mt-2"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.25 }}
             >
-              <span className="text-base font-black text-green-600">₪0</span>
-              <span className="text-xs text-green-600 font-medium">המחיר שלך</span>
+              <span className="text-sm sm:text-base font-black text-green-600">₪0</span>
+              <span className="text-[10px] sm:text-xs text-green-600 font-medium">המחיר שלך</span>
             </motion.div>
           )}
         </div>
@@ -112,12 +112,12 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
         {/* Warranty */}
         {product.warranty && (
           <motion.div
-            className="flex items-center gap-1.5 mb-4 text-xs text-muted-foreground py-2 px-2 bg-secondary/30 rounded-xl"
+            className="flex items-center gap-1 sm:gap-1.5 mb-3 sm:mb-4 text-[10px] sm:text-xs text-muted-foreground py-1.5 sm:py-2 px-2 bg-secondary/30 rounded-lg sm:rounded-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.22 }}
           >
-            <Shield className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
+            <Shield className="w-3 sm:w-3.5 h-3 sm:h-3.5 flex-shrink-0" strokeWidth={1.5} />
             <span className="line-clamp-1">{product.warranty}</span>
           </motion.div>
         )}
@@ -125,7 +125,7 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
         {/* Select Button */}
         {showSelectButton && (
           <motion.button
-            className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
+            className={`w-full py-2.5 sm:py-3 px-3 rounded-lg sm:rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 ${
               selected
                 ? "bg-primary text-white shadow-lg shadow-primary/30"
                 : "bg-secondary text-foreground hover:bg-primary hover:text-white"

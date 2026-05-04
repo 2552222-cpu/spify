@@ -16,7 +16,7 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full translate-y-1/2 -translate-x-1/2" />
 
-      <div className="relative z-10 max-w-2xl mx-auto">
+      <div className="relative z-10 max-w-2xl mx-auto px-2">
         {/* Checkmark animation */}
         <motion.div
           className="flex justify-center mb-8"
@@ -47,7 +47,7 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
 
         {/* Title */}
         <motion.h1
-          className="text-4xl font-black text-center mb-2"
+          className="text-2xl sm:text-4xl font-black text-center mb-1 sm:mb-2"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -56,7 +56,7 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
         </motion.h1>
 
         <motion.p
-          className="text-center text-muted-foreground text-lg mb-12"
+          className="text-center text-muted-foreground text-sm sm:text-lg mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
@@ -66,31 +66,31 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
 
         {/* Selected Product Card */}
         <motion.div
-          className="bg-white rounded-3xl border-2 border-primary/20 p-6 mb-10 shadow-lg hover:shadow-xl transition-shadow"
+          className="bg-white rounded-2xl sm:rounded-3xl border-2 border-primary/20 p-4 sm:p-6 mb-8 sm:mb-10 shadow-lg hover:shadow-xl transition-shadow"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
             <motion.img
               src={selectedProduct?.image}
               alt={selectedProduct?.title}
-              className="w-20 h-20 rounded-2xl object-cover flex-shrink-0"
+              className="w-16 sm:w-20 h-16 sm:h-20 rounded-lg sm:rounded-2xl object-cover flex-shrink-0"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.5 }}
             />
-            <div className="flex-1">
-              <div className="font-bold text-lg mb-1">{selectedProduct?.title}</div>
-              <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-black text-primary">₪0</span>
-                <span className="text-sm text-muted-foreground">
-                  שווי נתפס: ₪{(selectedProduct?.consumer_price ?? 0).toLocaleString()}
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm sm:text-lg mb-1 line-clamp-2">{selectedProduct?.title}</div>
+              <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                <span className="text-2xl sm:text-3xl font-black text-primary">₪0</span>
+                <span className="text-[10px] sm:text-sm text-muted-foreground whitespace-nowrap">
+                  שווי: ₪{(selectedProduct?.consumer_price ?? 0).toLocaleString()}
                 </span>
               </div>
             </div>
             <motion.div
-              className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full"
+              className="bg-green-100 text-green-700 text-[9px] sm:text-xs font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full flex-shrink-0"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.6, type: "spring" }}
@@ -102,13 +102,13 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
 
         {/* Order Details */}
         <motion.div
-          className="bg-card rounded-3xl border border-border p-6 mb-10 space-y-4"
+          className="bg-card rounded-2xl sm:rounded-3xl border border-border p-4 sm:p-6 mb-8 sm:mb-10 space-y-3 sm:space-y-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
         >
-          <h2 className="text-lg font-black mb-5">פרטי ההזמנה</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <h2 className="text-base sm:text-lg font-black mb-4 sm:mb-5">פרטי ההזמנה</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {[
               { label: "שם", value: name, icon: "👤" },
               { label: "כתובת משלוח", value: address, icon: "📍" },
@@ -117,15 +117,15 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="flex items-start gap-3"
+                className="flex items-start gap-2 sm:gap-3"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + i * 0.05 }}
               >
-                <span className="text-lg flex-shrink-0">{item.icon}</span>
+                <span className="text-base sm:text-lg flex-shrink-0">{item.icon}</span>
                 <div className="min-w-0">
-                  <div className="text-xs text-muted-foreground font-medium">{item.label}</div>
-                  <div className="font-semibold text-sm truncate">{item.value}</div>
+                  <div className="text-[10px] sm:text-xs text-muted-foreground font-medium">{item.label}</div>
+                  <div className="font-semibold text-xs sm:text-sm truncate">{item.value}</div>
                 </div>
               </motion.div>
             ))}
@@ -134,13 +134,13 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
 
         {/* Timeline */}
         <motion.div
-          className="mb-10"
+          className="mb-8 sm:mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <h2 className="text-lg font-black mb-6">הצעדים הבאים</h2>
-          <div className="space-y-4">
+          <h2 className="text-base sm:text-lg font-black mb-4 sm:mb-6">הצעדים הבאים</h2>
+          <div className="space-y-3 sm:space-y-4">
             {steps.map((step, i) => (
               <motion.div
                 key={i}
@@ -157,7 +157,7 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
                 whileHover={{ x: 4 }}
               >
                 <motion.div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 text-lg font-bold ${
+                  className={`w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 text-sm sm:text-lg font-bold ${
                     step.completed
                       ? "bg-green-200 text-green-700"
                       : step.highlight
@@ -170,12 +170,12 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
                 >
                   {step.completed ? "✓" : i + 1}
                 </motion.div>
-                <div>
-                  <div className={`font-bold ${step.highlight ? "text-primary" : ""}`}>
-                    {step.label}
+                  <div className="min-w-0">
+                    <div className={`font-bold text-xs sm:text-sm ${step.highlight ? "text-primary" : ""}`}>
+                      {step.label}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">{step.desc}</div>
                   </div>
-                  <div className="text-xs text-muted-foreground">{step.desc}</div>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -183,32 +183,32 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-3 justify-center"
+          className="flex flex-col gap-2 sm:gap-3 justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
         >
           <Link
             to="/catalog"
-            className="flex items-center justify-center gap-2 px-8 py-3 rounded-xl border-2 border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-all"
+            className="flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border-2 border-primary text-primary font-bold text-xs sm:text-sm hover:bg-primary/5 transition-all"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
             חזור לקטלוג
           </Link>
-          <div className="px-8 py-3 rounded-xl bg-green-100 text-green-700 font-bold text-sm text-center">
+          <div className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-green-100 text-green-700 font-bold text-xs sm:text-sm text-center">
             🎉 כל הכבוד על השגת היעד!
           </div>
         </motion.div>
 
         {/* FAQ */}
         <motion.div
-          className="mt-16 pt-10 border-t border-border"
+          className="mt-10 sm:mt-16 pt-6 sm:pt-10 border-t border-border"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1 }}
         >
-          <h3 className="text-sm font-black mb-4 text-muted-foreground">שאלות נפוצות</h3>
-          <div className="space-y-3">
+          <h3 className="text-xs sm:text-sm font-black mb-3 sm:mb-4 text-muted-foreground">שאלות נפוצות</h3>
+          <div className="space-y-2 sm:space-y-3">
             {[
               { q: "מתי המתנה תגיע?", a: "בתוך 10 ימי עסקים מהיום" },
               { q: "איך אדע שההזמנה התקבלה?", a: "תקבל אימייל של אישור הזמנה תוך מעט" },
@@ -216,16 +216,16 @@ export default function SuccessPage({ selectedProduct, name, address, phone }) {
             ].map((faq, i) => (
               <motion.details
                 key={i}
-                className="group bg-card rounded-xl border border-border p-4 cursor-pointer"
+                className="group bg-card rounded-lg sm:rounded-xl border border-border p-3 sm:p-4 cursor-pointer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.15 + i * 0.05 }}
               >
-                <summary className="flex items-center justify-between font-semibold text-sm group-open:text-primary transition-colors">
+                <summary className="flex items-center justify-between font-semibold text-xs sm:text-sm group-open:text-primary transition-colors">
                   <span>{faq.q}</span>
-                  <span className="text-lg group-open:rotate-180 transition-transform">›</span>
+                  <span className="text-base sm:text-lg group-open:rotate-180 transition-transform">›</span>
                 </summary>
-                <p className="text-xs text-muted-foreground mt-3 leading-relaxed">{faq.a}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-2 sm:mt-3 leading-relaxed">{faq.a}</p>
               </motion.details>
             ))}
           </div>
