@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Target, Trophy, Gift } from "lucide-react";
 import NavBar from "../components/spify/NavBar";
 import WizardStep from "../components/spify/WizardStep";
 import { Link } from "react-router-dom";
@@ -443,27 +443,33 @@ export default function Home() {
 
       {/* Features */}
       <section className="py-20 px-4 bg-background">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-black mb-4">איך זה עובד?</h2>
-          <p className="text-muted-foreground text-lg mb-16">שלושה שלבים פשוטים</p>
-          <div className="grid md:grid-cols-3 gap-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black mb-4">איך זה עובד?</h2>
+            <p className="text-muted-foreground text-lg">שלושה שלבים פשוטים</p>
+          </div>
+          <div className="flex flex-col gap-6">
             {[
-              { num: "01", title: "מגדיר יעדים", desc: "המנהל מגדיר יעדים ותקציב — פעם אחת, ואז מנוח", icon: "🎯" },
-              { num: "02", title: "עובדים משיגים", desc: "העובד מקבל הודעה אישית עם הגדרת היעד שלו", icon: "🏆" },
-              { num: "03", title: "בוחרים מתנה", desc: "כל עובד בוחר את המתנה שמושכת אותו מהקטלוג", icon: "🎁" },
+              { num: "01", title: "מגדיר יעדים", desc: "המנהל מגדיר יעדים ותקציב — פעם אחת, ואז מנוח", Icon: Target },
+              { num: "02", title: "עובדים משיגים", desc: "העובד מקבל הודעה אישית עם הגדרת היעד שלו", Icon: Trophy },
+              { num: "03", title: "בוחרים מתנה", desc: "כל עובד בוחר את המתנה שמושכת אותו מהקטלוג", Icon: Gift },
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)] text-right"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-6 bg-white rounded-3xl p-7 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
+                transition={{ delay: i * 0.12 }}
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <div className="text-xs font-bold text-muted-foreground mb-2">{item.num}</div>
-                <h3 className="text-xl font-black mb-3">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <item.Icon className="w-7 h-7 text-primary" />
+                </div>
+                <div className="text-right flex-1">
+                  <div className="text-xs font-bold text-muted-foreground mb-1">{item.num}</div>
+                  <h3 className="text-lg font-black mb-1">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
