@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Gift, Star, CheckCircle, ChevronLeft, Sparkles, Trophy } from "lucide-react";
 import ProductCard from "../components/spify/ProductCard";
+import SuccessPage from "../components/spify/SuccessPage";
 import { MOCK_PRODUCTS } from "../lib/mockData";
 
 const EMPLOYEE_PRODUCTS = MOCK_PRODUCTS.filter(p => p.price_tier === 1000 && p.active);
@@ -22,36 +23,7 @@ export default function Employee() {
   };
 
   if (step === "done") {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background flex items-center justify-center px-4 font-heebo">
-        <motion.div
-          className="max-w-md w-full text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, type: "spring" }}
-        >
-          <motion.div
-            className="w-28 h-28 gradient-primary rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-primary/40"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ repeat: 3, duration: 0.5 }}
-          >
-            <Trophy className="w-14 h-14 text-white" />
-          </motion.div>
-          <h1 className="text-3xl font-black mb-3">המתנה בדרך אליך!</h1>
-          <p className="text-muted-foreground text-lg mb-8">
-            בחרת: <strong className="text-foreground">{selected?.title}</strong><br />
-            תגיע תוך 10 ימי עסקים
-          </p>
-          <div className="bg-card rounded-3xl p-6 border border-border text-right space-y-3 mb-8">
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">שם</span><span className="font-semibold">{name}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">כתובת</span><span className="font-semibold">{address}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">מוצר</span><span className="font-semibold">{selected?.title}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">SLA</span><span className="font-semibold text-green-600">10 ימי עסקים</span></div>
-          </div>
-          <p className="text-sm text-muted-foreground">🎉 כל הכבוד על השגת היעד!</p>
-        </motion.div>
-      </div>
-    );
+    return <SuccessPage selectedProduct={selected} name={name} address={address} phone={phone} />;
   }
 
   if (step === "confirm") {
