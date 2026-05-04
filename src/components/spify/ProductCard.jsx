@@ -7,10 +7,10 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
 
   return (
     <motion.div
-      className={`relative bg-card rounded-3xl overflow-hidden border transition-all duration-300 cursor-pointer group ${
+      className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer group ${
         selected
-          ? "border-primary shadow-lg shadow-primary/20 ring-2 ring-primary/30"
-          : "border-border hover:border-primary/30 hover:shadow-xl hover:shadow-black/5"
+          ? "shadow-2xl shadow-primary/15 ring-2 ring-primary/40"
+          : "shadow-[0_2px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
       }`}
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}

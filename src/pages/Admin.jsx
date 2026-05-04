@@ -214,7 +214,7 @@ export default function Admin() {
                 {products.map(product => (
                   <motion.div
                     key={product.id}
-                    className="bg-card rounded-2xl border border-border overflow-hidden"
+                    className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.06)]"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
@@ -265,7 +265,7 @@ export default function Admin() {
         {tab === "orders" && (
           <div>
             <h2 className="text-2xl font-black mb-6">ניהול הזמנות ({orders.length})</h2>
-            <div className="bg-card rounded-3xl border border-border overflow-hidden">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
               <div className="divide-y divide-border">
                 {orders.map((order, i) => (
                   <div key={order.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4 hover:bg-secondary/30 transition-colors">
@@ -312,7 +312,7 @@ export default function Admin() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-card rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-border shadow-2xl"
+              className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -500,7 +500,7 @@ export default function Admin() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-card rounded-3xl p-8 w-full max-w-sm border border-border text-center"
+              className="bg-white rounded-3xl p-8 w-full max-w-sm text-center shadow-2xl"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}

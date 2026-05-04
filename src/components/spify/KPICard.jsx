@@ -12,7 +12,7 @@ export default function KPICard({ label, value, sub, icon: Icon, color = "primar
 
   return (
     <motion.div
-      className="bg-card rounded-3xl p-6 border border-border"
+      className="bg-white rounded-3xl p-6 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.4 }}

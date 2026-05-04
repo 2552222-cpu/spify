@@ -65,7 +65,7 @@ export default function Analytics() {
         <div className="grid lg:grid-cols-3 gap-6 mb-6">
           {/* Funnel */}
           <motion.div
-            className="lg:col-span-1 bg-card rounded-3xl p-8 border border-border"
+            className="lg:col-span-1 bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -80,7 +80,7 @@ export default function Analytics() {
 
           {/* Daily Activity */}
           <motion.div
-            className="lg:col-span-2 bg-card rounded-3xl p-8 border border-border"
+            className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -104,7 +104,7 @@ export default function Analytics() {
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           {/* Pie Chart - Product Distribution */}
           <motion.div
-            className="bg-card rounded-3xl p-8 border border-border"
+            className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -133,7 +133,7 @@ export default function Analytics() {
 
           {/* Benchmark */}
           <motion.div
-            className="bg-card rounded-3xl p-8 border border-border"
+            className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -156,7 +156,7 @@ export default function Analytics() {
 
         {/* Insights */}
         <motion.div
-          className="bg-card rounded-3xl p-8 border border-border"
+          className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}

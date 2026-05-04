@@ -142,7 +142,7 @@ export default function Home() {
 
                 {/* STEP 1 - Campaign Type */}
                 {wizardStep === 1 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">סוג קמפיין</h3>
                     <p className="text-muted-foreground mb-8">על מה אתה רוצה לתגמל?</p>
                     <div className="grid grid-cols-2 gap-4">
@@ -168,7 +168,7 @@ export default function Home() {
 
                 {/* STEP 2 - Employees + Success Rate */}
                 {wizardStep === 2 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">פרטי הקמפיין</h3>
                     <p className="text-muted-foreground mb-8">הגדר את היקף הקמפיין</p>
                     <div className="space-y-6">
@@ -192,7 +192,7 @@ export default function Home() {
 
                 {/* STEP 3 - Tiers */}
                 {wizardStep === 3 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">מדרגות תגמול</h3>
                     <p className="text-muted-foreground mb-8">בחר את ערך המתנה לעובד</p>
                     <div className="grid grid-cols-2 gap-4">
@@ -218,7 +218,7 @@ export default function Home() {
 
                 {/* STEP 4 - Purchase Mode */}
                 {wizardStep === 4 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">איך תרצה לנהל את התגמולים?</h3>
                     <p className="text-muted-foreground mb-8">בחר את מודל האספקה המתאים לקמפיין שלך</p>
                     <div className="space-y-4">
@@ -266,7 +266,7 @@ export default function Home() {
 
                 {/* STEP 5 - Reward Type */}
                 {wizardStep === 5 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">סוג מתנות</h3>
                     <p className="text-muted-foreground mb-8">איזה סוג מתנות יציג הקמפיין?</p>
                     <div className="grid grid-cols-2 gap-6">
@@ -293,7 +293,7 @@ export default function Home() {
 
                 {/* STEP 6 - Gift Preview */}
                 {wizardStep === 6 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">כך יראו המתנות לעובדים</h3>
                     <p className="text-muted-foreground mb-6">מתנות אמיתיות מהקטלוג למדרגת ₪{form.tier.toLocaleString()}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -328,7 +328,7 @@ export default function Home() {
 
                 {/* STEP 7 - Cost */}
                 {wizardStep === 7 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">עלות בפועל</h3>
                     <p className="text-muted-foreground mb-8">תשלם רק על עובדים שבחרו מתנה</p>
                     <div className="space-y-4 mb-6">
@@ -353,7 +353,7 @@ export default function Home() {
 
                 {/* STEP 8 - Value */}
                 {wizardStep === 8 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm text-center">
+                  <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)] text-center">
                     <div className="w-20 h-20 gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
                       <span className="text-3xl">✓</span>
                     </div>
@@ -417,7 +417,7 @@ export default function Home() {
             <h2 className="text-4xl font-black mb-3">שוברים vs SPIFY</h2>
             <p className="text-muted-foreground text-lg">למה עובדים אוהבים מתנות אמיתיות יותר</p>
           </div>
-          <div className="bg-card rounded-3xl border border-border overflow-hidden shadow-sm">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
             {/* Header */}
             <div className="grid grid-cols-3 text-sm font-bold">
               <div className="p-4 text-muted-foreground border-b border-border">פרמטר</div>
@@ -454,7 +454,7 @@ export default function Home() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="bg-card rounded-3xl p-8 border border-border text-right"
+                className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)] text-right"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

@@ -45,7 +45,7 @@ export default function Dashboard() {
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           {/* Funnel */}
           <motion.div
-            className="lg:col-span-2 bg-card rounded-3xl p-8 border border-border"
+            className="lg:col-span-2 bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -60,7 +60,7 @@ export default function Dashboard() {
 
           {/* Budget */}
           <motion.div
-            className="bg-card rounded-3xl p-8 border border-border"
+            className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -102,7 +102,7 @@ export default function Dashboard() {
 
         {/* Recent Orders */}
         <motion.div
-          className="bg-card rounded-3xl border border-border overflow-hidden"
+          className="bg-white rounded-3xl overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

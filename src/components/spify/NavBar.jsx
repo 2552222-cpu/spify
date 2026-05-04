@@ -3,9 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const LOGO_WHITE = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/7efc36d65_500x400.png";
-const LOGO_BLACK = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/e03d191e3_500x4001.png";
-// החלף את הלוגו כשהקישור החדש יסופק
+const LOGO_NEW = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/a1f0df9ea_500x5003.png";
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,7 +36,7 @@ export default function NavBar() {
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
-            src={scrolled ? LOGO_BLACK : LOGO_WHITE}
+            src={LOGO_NEW}
             alt="SPIFY"
             className="h-11 w-auto object-contain transition-all duration-300 rounded-[15px]"
           />
