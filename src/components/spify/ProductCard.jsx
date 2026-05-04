@@ -10,86 +10,140 @@ export default function ProductCard({ product, onSelect, showSelectButton = fals
 
   return (
     <motion.div
-      className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer group ${
+      className={`relative bg-white rounded-3xl overflow-hidden transition-all duration-300 cursor-pointer group h-full flex flex-col ${
         selected
-          ? "shadow-[0_4px_24px_rgba(0,0,0,0.12)] ring-2 ring-primary/40"
-          : "shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_32px_rgba(0,0,0,0.10)]"
+          ? "shadow-[0_8px_32px_rgba(0,0,0,0.15)] ring-2 ring-primary/40"
+          : "shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
       }`}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ y: -4 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       onClick={() => onSelect && onSelect(product)}
     >
       {/* Badge */}
       {product.badge && (
-        <div className="absolute top-3 right-3 z-10 px-3 py-1 rounded-full text-xs font-bold bg-primary text-white">
+        <motion.div
+          className="absolute top-3 right-3 z-20 px-3.5 py-1.5 rounded-full text-xs font-bold bg-primary text-white"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
           {product.badge}
-        </div>
+        </motion.div>
       )}
 
       {/* Stock Warning */}
       {stockLow && (
-        <div className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-bold bg-red-500 text-white">
-          נותרו {product.stock} יחידות
-        </div>
+        <motion.div
+          className="absolute top-3 left-3 z-20 px-3.5 py-1.5 rounded-full text-xs font-bold bg-red-500 text-white"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.15 }}
+        >
+          נותרו {product.stock}
+        </motion.div>
       )}
 
-      {/* Image — square aspect ratio */}
-      <div className="relative aspect-square bg-secondary overflow-hidden">
-        <img
+      {/* Image Container - larger and more prominent */}
+      <div className="relative w-full aspect-[3/4] bg-gradient-to-b from-secondary to-secondary/80 overflow-hidden flex-shrink-0">
+        <motion.img
           src={product.image || PLACEHOLDER}
           alt={product.title}
           onError={e => { e.currentTarget.src = PLACEHOLDER; }}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.4 }}
         />
-        {/* Disclaimer overlay */}
-        <div className="absolute bottom-0 left-0 right-0 bg-black/30 text-white text-[10px] text-center py-1">
+        
+        {/* Disclaimer overlay - more prominent */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[11px] text-center py-2 font-medium"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           תמונות להמחשה בלבד
-        </div>
+        </motion.div>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="font-bold text-base text-foreground leading-tight mb-1 line-clamp-2">{product.title}</h3>
+      {/* Content - grows to fill remaining space */}
+      <motion.div
+        className="p-4 sm:p-5 flex flex-col flex-grow"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.15, duration: 0.3 }}
+      >
+        {/* Title */}
+        <h3 className="font-bold text-sm sm:text-base text-foreground leading-snug mb-3 line-clamp-2">
+          {product.title}
+        </h3>
+
+        {/* Divider */}
+        <div className="h-px bg-border/50 mb-3" />
 
         {/* Pricing */}
-        <div className="space-y-1 mb-4 mt-3">
+        <div className="space-y-2 mb-4 flex-grow">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-foreground">₪{displayPrice.toLocaleString()}</span>
-            <span className="text-xs text-muted-foreground">שווי המתנה</span>
+            <motion.span
+              className="text-2xl sm:text-3xl font-black text-foreground"
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              ₪{displayPrice.toLocaleString()}
+            </motion.span>
           </div>
+          <span className="text-xs text-muted-foreground block">שווי המתנה</span>
+          
           {employeeView && (
-            <div className="inline-flex items-center gap-1 bg-green-50 px-3 py-1 rounded-full">
+            <motion.div
+              className="inline-flex items-center gap-1.5 bg-green-50 px-3 py-1.5 rounded-full mt-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.25 }}
+            >
               <span className="text-base font-black text-green-600">₪0</span>
               <span className="text-xs text-green-600 font-medium">המחיר שלך</span>
-            </div>
+            </motion.div>
           )}
         </div>
 
         {/* Warranty */}
         {product.warranty && (
-          <div className="flex items-center gap-1.5 mb-4 text-xs text-muted-foreground">
-            <Shield className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span>{product.warranty}</span>
-          </div>
+          <motion.div
+            className="flex items-center gap-1.5 mb-4 text-xs text-muted-foreground py-2 px-2 bg-secondary/30 rounded-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.22 }}
+          >
+            <Shield className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
+            <span className="line-clamp-1">{product.warranty}</span>
+          </motion.div>
         )}
 
         {/* Select Button */}
         {showSelectButton && (
-          <button
-            className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all duration-200 ${
+          <motion.button
+            className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
               selected
-                ? "bg-primary text-white"
+                ? "bg-primary text-white shadow-lg shadow-primary/30"
                 : "bg-secondary text-foreground hover:bg-primary hover:text-white"
             }`}
             onClick={(e) => {
               e.stopPropagation();
               onSelect && onSelect(product);
             }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
           >
             {selected ? "✓ נבחר" : "אני רוצה את זה"}
-          </button>
+          </motion.button>
         )}
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
