@@ -454,27 +454,28 @@ export default function Home() {
       <section className="py-20 px-4 bg-secondary/30">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-3">שוברים vs SPIFY</h2>
-            <p className="text-muted-foreground text-lg">למה עובדים אוהבים מתנות אמיתיות יותר</p>
+            <h2 className="text-4xl font-black mb-3">למה עובדים לא מתאמצים בשביל שוברים</h2>
+            <p className="text-muted-foreground text-lg">ומה קורה כשנותנים להם משהו שהם באמת רוצים</p>
           </div>
           <div className="bg-white rounded-3xl overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
             {/* Header */}
             <div className="grid grid-cols-3 text-sm font-bold">
-              <div className="p-4 text-muted-foreground border-b border-border">פרמטר</div>
-              <div className="p-4 text-center border-b border-r border-l border-border text-muted-foreground bg-secondary/50">שוברים</div>
-              <div className="p-4 text-center border-b border-border gradient-primary text-white rounded-tl-none">SPIFY ✨</div>
+              <div className="p-4 text-muted-foreground border-b border-border"></div>
+              <div className="p-4 text-center border-b border-r border-l border-border text-muted-foreground bg-secondary/50">פתרונות רגילים</div>
+              <div className="p-4 text-center border-b border-border gradient-primary text-white">SPIFY</div>
             </div>
             {[
-              { param: "מה העובד מקבל", voucher: "שובר גנרי", spify: "מתנה אמיתית שבחר" },
-              { param: "שווי נתפס", voucher: "₪1,000", spify: "₪2,800+" },
-              { param: "מוטיבציה", voucher: "נמוכה", spify: "גבוהה מאוד" },
-              { param: "תפעול", voucher: "מורכב", spify: "אפס" },
-              { param: "חוויה", voucher: "נמוכה", spify: "גבוהה" },
+              { param: "מה העובד מקבל", regular: "שובר דיגיטלי\n\"עוד כסף לקניות\"", spify: "מתנה אמיתית שהוא בוחר בעצמו\nחוויה שהוא חיכה לה" },
+              { param: "שווי נתפס", regular: "₪1,000", spify: "₪2,500–₪3,500" },
+              { param: "מוטיבציה", regular: "נמוכה\n\"שיהיה…\"", spify: "גבוהה מאוד\n\"אני חייב את זה\"" },
+              { param: "התנהגות עובדים", regular: "אין שינוי אמיתי", spify: "מתחילים לדבר על זה\nמשווים ביניהם\nנכנסים לתחרות" },
+              { param: "תפעול למנהל", regular: "אקסל, ספקים, כאב ראש", spify: "הכל מנוהל עבורך\nללא התעסקות" },
+              { param: "חוויה אחרי", regular: "נשכח אחרי יום", spify: "נשאר בבית / בזיכרון\nוממשיך לעבוד בשביל הבא" },
             ].map((row, i) => (
-              <div key={i} className={`grid grid-cols-3 text-sm ${i < 4 ? "border-b border-border" : ""}`}>
+              <div key={i} className={`grid grid-cols-3 text-sm ${i < 5 ? "border-b border-border" : ""}`}>
                 <div className="p-4 font-semibold text-foreground">{row.param}</div>
-                <div className="p-4 text-center text-muted-foreground border-r border-l border-border bg-secondary/30">{row.voucher}</div>
-                <div className="p-4 text-center font-bold text-primary">{row.spify}</div>
+                <div className="p-4 text-right text-muted-foreground border-r border-l border-border bg-secondary/30 whitespace-pre-line text-xs sm:text-sm">{row.regular}</div>
+                <div className="p-4 text-right font-bold text-primary whitespace-pre-line text-xs sm:text-sm">{row.spify}</div>
               </div>
             ))}
           </div>
