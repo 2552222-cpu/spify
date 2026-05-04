@@ -48,7 +48,7 @@ export default function Home() {
   const previewProducts = MOCK_PRODUCTS.filter(p =>
     form.tiers.includes(p.price_tier) &&
     p.active &&
-    (!form.rewardType || p.rewardType === form.rewardType)
+    (form.rewardType === "mix" || !form.rewardType || p.rewardType === form.rewardType)
   ).slice(0, 6);
 
   const startWizard = () => {
