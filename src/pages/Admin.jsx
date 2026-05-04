@@ -479,8 +479,8 @@ export default function Admin() {
                 </button>
                 <button
                   onClick={handleSave}
-                  disabled={!form.title}
-                  className="flex-1 gradient-primary text-white py-3 rounded-2xl text-sm font-bold disabled:opacity-40 hover:opacity-90 transition-all"
+                  disabled={!form.title || !form.image || !form.consumer_price}
+                  className="flex-1 bg-primary text-white py-3 rounded-2xl text-sm font-bold disabled:opacity-40 hover:opacity-90 transition-all"
                 >
                   {modal.mode === "add" ? "הוסף מוצר" : "שמור שינויים"}
                 </button>

@@ -5,7 +5,7 @@ import ProductCard from "../components/spify/ProductCard";
 import { MOCK_PRODUCTS } from "../lib/mockData";
 
 const EMPLOYEE_PRODUCTS = MOCK_PRODUCTS.filter(p => p.price_tier === 1000 && p.active);
-const RECOMMENDED = EMPLOYEE_PRODUCTS.reduce((best, p) => (!best || p.perceived > best.perceived) ? p : best, null);
+const RECOMMENDED = EMPLOYEE_PRODUCTS.reduce((best, p) => (!best || (p.consumer_price ?? 0) > (best.consumer_price ?? 0)) ? p : best, null);
 
 export default function Employee() {
   const [selected, setSelected] = useState(null);
@@ -76,7 +76,7 @@ export default function Employee() {
                 <img src={selected.image} alt={selected.title} className="w-16 h-16 rounded-2xl object-cover" />
                 <div>
                   <div className="font-bold">{selected.title}</div>
-                  <div className="text-sm text-muted-foreground">שווי נתפס: <span className="font-bold text-foreground">₪{selected.perceived.toLocaleString()}</span></div>
+                  <div className="text-sm text-muted-foreground">שווי נתפס: <span className="font-bold text-foreground">₪{(selected.consumer_price ?? 0).toLocaleString()}</span></div>
                 </div>
                 <div className="mr-auto bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded-full">₪0</div>
               </div>
@@ -149,9 +149,14 @@ export default function Employee() {
           </div>
           <h1 className="text-4xl font-black mb-3">בחר את המתנה שלך</h1>
           <p className="text-white/80 text-lg mb-6">הגעת ליעד — מגיע לך לחגוג!</p>
-          <div className="flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 w-fit mx-auto">
-            <Clock className="w-4 h-4" />
-            <span className="text-sm font-semibold">14 ימים לבחירה</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-2">
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-5 py-2.5">
+              <Clock className="w-4 h-4" strokeWidth={1.5} />
+              <span className="text-sm font-semibold">14 ימים לבחירה</span>
+            </div>
+            <div className="flex items-center gap-2 bg-red-500/80 backdrop-blur-sm rounded-full px-5 py-2.5">
+              <span className="text-sm font-semibold">🔥 נשארו יחידות אחרונות</span>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -219,7 +224,7 @@ export default function Employee() {
               <img src={selected.image} alt={selected.title} className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-sm truncate">{selected.title}</div>
-                <div className="text-xs text-muted-foreground">שווי נתפס: ₪{selected.perceived.toLocaleString()}</div>
+                <div className="text-xs text-muted-foreground">שווי נתפס: ₪{(selected.consumer_price ?? 0).toLocaleString()}</div>
               </div>
               <button
                 onClick={() => setSelected(null)}

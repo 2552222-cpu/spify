@@ -5,7 +5,7 @@ import NavBar from "../components/spify/NavBar";
 import ProductCard from "../components/spify/ProductCard";
 import { MOCK_PRODUCTS } from "../lib/mockData";
 
-const CATEGORIES = ["הכל", "אלקטרוניקה", "בית וגינה", "ספורט", "נסיעות", "אוכל ושתייה", "אופנה", "בריאות"];
+const CATEGORIES = ["הכל", "אלקטרוניקה וגאדג'טים", "לבית ולגינה", "חופשות ופנאי", "מסעדות וחוויות"];
 const TIERS = ["הכל", "1000", "2500"];
 
 export default function Catalog() {
@@ -16,9 +16,17 @@ export default function Catalog() {
 
   const filtered = MOCK_PRODUCTS.filter(p => {
     const matchSearch = p.title.includes(search) || p.description.includes(search);
-    const matchCat = category === "הכל" || p.category === category;
+    const matchCat = category === "הכל" ||
+      (category === "אלקטרוניקה וגאדג'טים" && (p.category === "אלקטרוניקה" || p.rewardType === "electric")) ||
+      (category === "לבית ולגינה" && (p.category === "בית וגינה" || p.rewardType === "home")) ||
+      (category === "חופשות ופנאי" && (p.category === "נסיעות" || p.rewardType === "vacation")) ||
+      (category === "מסעדות וחוויות" && (p.category === "אוכל ושתייה" || p.rewardType === "experience"));
     const matchTier = tier === "הכל" || p.price_tier === parseInt(tier);
     return matchSearch && matchCat && matchTier && p.active;
+  }).sort((a, b) => {
+    if (b.popular !== a.popular) return b.popular ? 1 : -1;
+    if (b.top !== a.top) return b.top ? 1 : -1;
+    return (b.consumer_price ?? 0) - (a.consumer_price ?? 0);
   });
 
   return (

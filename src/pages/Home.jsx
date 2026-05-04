@@ -484,6 +484,13 @@ export default function Home() {
           <button onClick={startWizard} className="bg-background text-foreground px-10 py-4 rounded-2xl font-bold text-lg hover:bg-background/90 transition-all">
             הפעל קמפיין ראשון
           </button>
+          <div className="mt-10 pt-8 border-t border-background/10">
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-xl font-black tracking-tight">SPIFY</span>
+              <span className="text-[10px] tracking-widest uppercase text-background/40">make them want it</span>
+              <span className="text-[11px] text-background/30 mt-2">powered by boombuy</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>
