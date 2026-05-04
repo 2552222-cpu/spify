@@ -14,7 +14,7 @@ const CAMPAIGN_TYPES = [
   { id: "team", label: "הצלחה צוותית", icon: "👥", desc: "תגמול על עמידה ביעד צוותי" },
 ];
 
-const STEP_LABELS = ["סוג קמפיין", "פרטי קמפיין", "מדרגות", "סוג מתנות", "תצוגת מתנות", "עלות", "ערך"];
+const STEP_LABELS = ["סוג קמפיין", "פרטי קמפיין", "מדרגות", "מודל אספקה", "סוג מתנות", "תצוגת מתנות", "עלות", "ערך"];
 
 export default function Home() {
   const [wizardStep, setWizardStep] = useState(null);
@@ -24,6 +24,7 @@ export default function Home() {
     successRate: 80,
     tier: 1000,
     rewardType: null,
+    purchaseMode: 'on_demand',
   });
   const wizardRef = useRef(null);
 
@@ -47,7 +48,7 @@ export default function Home() {
 
   const canNext = () => {
     if (wizardStep === 1) return !!form.campaignType;
-    if (wizardStep === 4) return !!form.rewardType;
+    if (wizardStep === 5) return !!form.rewardType;
     return true;
   };
 
@@ -224,8 +225,56 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* STEP 4 - Reward Type */}
+                {/* STEP 4 - Purchase Mode */}
                 {wizardStep === 4 && (
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-2xl font-black mb-2">איך תרצה לנהל את התגמולים?</h3>
+                    <p className="text-muted-foreground mb-8">בחר את מודל האספקה המתאים לקמפיין שלך</p>
+                    <div className="space-y-4">
+                      {[
+                        {
+                          id: 'on_demand',
+                          label: 'רכישה לאחר בחירת העובדים',
+                          sub: 'גמישות מלאה · ללא התחייבות למלאי',
+                          desc: 'הרכישה מתבצעת לאחר שהעובדים בחרו. ייתכנו שינויים בדגם בהתאם לזמינות.',
+                          tag: 'ברירת מחדל',
+                          tagColor: 'bg-blue-100 text-blue-700',
+                        },
+                        {
+                          id: 'pre_purchase',
+                          label: 'רכישה מראש ושריון מוצרים',
+                          sub: 'שמירת מלאי · ניתן להציג פרסים במשרד',
+                          desc: 'המוצרים נשמרים עבורך מראש. ניתן להציגם לעובדים במשרד ולהגביר מוטיבציה.',
+                          tag: '🔥 אפקט וואו',
+                          tagColor: 'bg-orange-100 text-orange-700',
+                        },
+                      ].map(opt => (
+                        <button
+                          key={opt.id}
+                          onClick={() => setForm(f => ({ ...f, purchaseMode: opt.id }))}
+                          className={`w-full p-6 rounded-2xl border-2 text-right transition-all duration-200 ${
+                            form.purchaseMode === opt.id
+                              ? 'border-primary bg-primary/5 shadow-md'
+                              : 'border-border hover:border-primary/40'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-3 mb-2">
+                            <div>
+                              <div className="font-black text-base mb-0.5">{opt.label}</div>
+                              <div className="text-sm text-muted-foreground">{opt.sub}</div>
+                            </div>
+                            <span className={`text-xs font-bold px-3 py-1 rounded-full flex-shrink-0 ${opt.tagColor}`}>{opt.tag}</span>
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-3 leading-relaxed">{opt.desc}</div>
+                          {form.purchaseMode === opt.id && <div className="mt-3 text-xs font-bold text-primary">✓ נבחר</div>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 5 - Reward Type */}
+                {wizardStep === 5 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
                     <h3 className="text-2xl font-black mb-2">סוג מתנות</h3>
                     <p className="text-muted-foreground mb-8">איזה סוג מתנות יציג הקמפיין?</p>
@@ -253,8 +302,8 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* STEP 5 - Gift Preview */}
-                {wizardStep === 5 && (
+                {/* STEP 6 - Gift Preview */}
+                {wizardStep === 6 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
                     <h3 className="text-2xl font-black mb-2">כך יראו המתנות לעובדים</h3>
                     <p className="text-muted-foreground mb-6">מתנות אמיתיות מהקטלוג למדרגת ₪{form.tier.toLocaleString()}</p>
@@ -288,8 +337,8 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* STEP 6 - Cost */}
-                {wizardStep === 6 && (
+                {/* STEP 7 - Cost */}
+                {wizardStep === 7 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
                     <h3 className="text-2xl font-black mb-2">עלות בפועל</h3>
                     <p className="text-muted-foreground mb-8">תשלם רק על עובדים שבחרו מתנה</p>
@@ -313,8 +362,8 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* STEP 7 - Value */}
-                {wizardStep === 7 && (
+                {/* STEP 8 - Value */}
+                {wizardStep === 8 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm text-center">
                     <div className="w-20 h-20 gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-white" />
@@ -337,6 +386,7 @@ export default function Home() {
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">עובדים</span><span className="font-bold">{form.employees}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">מדרגה</span><span className="font-bold">₪{form.tier.toLocaleString()}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">סוג מתנות</span><span className="font-bold">{form.rewardType === "electric" ? "מוצרי חשמל" : "חופשות"}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">מודל אספקה</span><span className="font-bold">{form.purchaseMode === 'pre_purchase' ? 'רכישה מראש' : 'רכישה לאחר בחירה'}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">עלות צפויה</span><span className="font-bold">₪{totalCost.toLocaleString()}</span></div>
                     </div>
                     <Link to="/dashboard" className="block w-full gradient-primary text-white py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-all">
@@ -346,7 +396,7 @@ export default function Home() {
                 )}
 
                 {/* Navigation */}
-                {wizardStep < 7 && (
+                {wizardStep < 8 && (
                   <div className="flex items-center justify-between mt-6">
                     <button
                       onClick={() => setWizardStep(s => Math.max(1, s - 1))}
