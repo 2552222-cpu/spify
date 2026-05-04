@@ -6,7 +6,7 @@ import WizardStep from "../components/spify/WizardStep";
 import { Link } from "react-router-dom";
 import { MOCK_PRODUCTS } from "../lib/mockData";
 
-const TIERS = [1000, 2500];
+const BASE_TIERS = [1000, 2500];
 const CAMPAIGN_TYPES = [
   { id: "sales", label: "יעדי מכירות", icon: "📈", desc: "תגמול על השגת יעד מכירות רבעוני" },
   { id: "retention", label: "שימור עובדים", icon: "🤝", desc: "תגמול על נאמנות ומחויבות לאורך זמן" },
@@ -23,16 +23,26 @@ export default function Home() {
     employees: 50,
     successRate: 80,
     tier: 1000,
+    tiers: [1000],         // multi-tier support
     rewardType: null,
     purchaseMode: 'on_demand',
   });
   const wizardRef = useRef(null);
 
   const expectedRecipients = Math.round(form.employees * (form.successRate / 100));
-  const totalCost = expectedRecipients * form.tier;
-  const avgPerceived = form.tier === 1000 ? 1900 : 6000;
+  const avgTier = form.tiers.length > 0 ? Math.round(form.tiers.reduce((a, b) => a + b, 0) / form.tiers.length) : form.tier;
+  const totalCost = expectedRecipients * avgTier;
+  const avgPerceived = avgTier <= 1000 ? 1900 : 6000;
   const perceivedTotal = expectedRecipients * avgPerceived;
   const multiplier = totalCost > 0 ? (perceivedTotal / totalCost).toFixed(1) : 0;
+
+  const toggleTier = (t) => {
+    setForm(f => {
+      const has = f.tiers.includes(t);
+      const next = has ? f.tiers.filter(x => x !== t) : [...f.tiers, t];
+      return { ...f, tiers: next.length > 0 ? next : [t], tier: next[0] || t };
+    });
+  };
 
   // Products for preview (step 5)
   const previewProducts = MOCK_PRODUCTS.filter(p =>
@@ -48,6 +58,7 @@ export default function Home() {
 
   const canNext = () => {
     if (wizardStep === 1) return !!form.campaignType;
+    if (wizardStep === 3) return form.tiers.length > 0;
     if (wizardStep === 5) return !!form.rewardType;
     return true;
   };
@@ -190,27 +201,43 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* STEP 3 - Tiers */}
+                {/* STEP 3 - Tiers (multi-select) */}
                 {wizardStep === 3 && (
                   <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">מדרגות תגמול</h3>
-                    <p className="text-muted-foreground mb-8">בחר את ערך המתנה לעובד</p>
-                    <div className="grid grid-cols-2 gap-4">
-                      {TIERS.map(tier => (
-                        <button
-                          key={tier}
-                          onClick={() => setForm(f => ({ ...f, tier }))}
-                          className={`p-6 rounded-2xl border-2 transition-all duration-200 text-right ${
-                            form.tier === tier ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
-                          }`}
-                        >
-                          <div className="text-3xl font-black text-primary mb-1">₪{tier.toLocaleString()}</div>
-                          <div className="text-sm text-muted-foreground">לעובד</div>
-                          {form.tier === tier && <div className="mt-2 text-xs font-bold text-primary">✓ נבחר</div>}
-                        </button>
-                      ))}
+                    <p className="text-muted-foreground mb-2">בחר מדרגה אחת או יותר — עובדים שונים יכולים לקבל סכומים שונים</p>
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">ניתן לבחור מספר מדרגות</span>
                     </div>
-                    <div className="mt-4 bg-green-50 border border-green-200 rounded-2xl p-4 text-sm text-green-700 font-medium text-center">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      {BASE_TIERS.map(t => {
+                        const isSelected = form.tiers.includes(t);
+                        return (
+                          <button
+                            key={t}
+                            onClick={() => toggleTier(t)}
+                            className={`p-6 rounded-2xl border-2 transition-all duration-200 text-right relative ${
+                              isSelected ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
+                            }`}
+                          >
+                            {isSelected && (
+                              <div className="absolute top-3 left-3 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                                <span className="text-white text-xs font-bold">✓</span>
+                              </div>
+                            )}
+                            <div className="text-3xl font-black text-primary mb-1">₪{t.toLocaleString()}</div>
+                            <div className="text-sm text-muted-foreground">לעובד</div>
+                            <div className="text-xs text-muted-foreground mt-1">{t === 1000 ? "שווי נתפס ~₪1,900" : "שווי נתפס ~₪6,000"}</div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {form.tiers.length > 1 && (
+                      <div className="mb-4 bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-700 font-medium text-center">
+                        💡 בחרת {form.tiers.length} מדרגות — עובדים שונים יוצגו קטלוגים שונים בהתאם לרמתם
+                      </div>
+                    )}
+                    <div className="bg-green-50 border border-green-200 rounded-2xl p-4 text-sm text-green-700 font-medium text-center">
                       ✔ אתה משלם רק על מי שבחר מתנה
                     </div>
                   </div>
@@ -269,22 +296,34 @@ export default function Home() {
                   <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">סוג מתנות</h3>
                     <p className="text-muted-foreground mb-8">איזה סוג מתנות יציג הקמפיין?</p>
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-4">
                       {[
-                        { id: "electric", label: "מוצרי חשמל", emoji: "⚡", desc: "אוזניות, שעונים, מחשבים ועוד" },
-                        { id: "vacation", label: "חופשות", emoji: "✈️", desc: "ספא, נסיעות, חוויות בלתי נשכחות" },
+                        { id: "electric", label: "מוצרי חשמל", emoji: "⚡", desc: "אוזניות, שעונים, מחשבים, מכונות קפה ועוד" },
+                        { id: "vacation", label: "חופשות וספא", emoji: "✈️", desc: "לינות במלון, ספא, חוויות בלתי נשכחות" },
+                        { id: "mix", label: "סומך עליכם – Smart Mix", emoji: "🎁", desc: "SPIFY בוחר את המיקס האופטימלי מכל הקטגוריות לפי נתוני השוק. הדרך הכי מומלצת!", tag: "🏆 הכי מומלץ" },
                       ].map(type => (
                         <button
                           key={type.id}
                           onClick={() => setForm(f => ({ ...f, rewardType: type.id }))}
-                          className={`p-8 rounded-2xl border-2 text-center transition-all duration-200 ${
+                          className={`p-6 rounded-2xl border-2 text-right transition-all duration-200 relative ${
                             form.rewardType === type.id ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
                           }`}
                         >
-                          <div className="text-4xl mb-4">{type.emoji}</div>
-                          <div className="font-black text-lg mb-1">{type.label}</div>
-                          <div className="text-xs text-muted-foreground">{type.desc}</div>
-                          {form.rewardType === type.id && <div className="mt-3 text-xs font-bold text-primary">✓ נבחר</div>}
+                          <div className="flex items-center gap-4">
+                            <span className="text-3xl flex-shrink-0">{type.emoji}</span>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-0.5">
+                                <span className="font-black text-base">{type.label}</span>
+                                {type.tag && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">{type.tag}</span>}
+                              </div>
+                              <div className="text-xs text-muted-foreground">{type.desc}</div>
+                            </div>
+                            {form.rewardType === type.id && (
+                              <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                                <span className="text-white text-xs font-bold">✓</span>
+                              </div>
+                            )}
+                          </div>
                         </button>
                       ))}
                     </div>
@@ -374,7 +413,8 @@ export default function Home() {
                     <div className="bg-secondary rounded-2xl p-5 text-right mb-8 space-y-3">
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">עובדים</span><span className="font-bold">{form.employees}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">מדרגה</span><span className="font-bold">₪{form.tier.toLocaleString()}</span></div>
-                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">סוג מתנות</span><span className="font-bold">{form.rewardType === "electric" ? "מוצרי חשמל" : "חופשות"}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">מדרגות</span><span className="font-bold">{form.tiers.map(t => `₪${t.toLocaleString()}`).join(" + ")}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">סוג מתנות</span><span className="font-bold">{form.rewardType === "electric" ? "מוצרי חשמל" : form.rewardType === "vacation" ? "חופשות" : "Smart Mix"}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">מודל אספקה</span><span className="font-bold">{form.purchaseMode === 'pre_purchase' ? 'רכישה מראש' : 'רכישה לאחר בחירה'}</span></div>
                       <div className="flex justify-between text-sm"><span className="text-muted-foreground">עלות צפויה</span><span className="font-bold">₪{totalCost.toLocaleString()}</span></div>
                     </div>
