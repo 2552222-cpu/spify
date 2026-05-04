@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
 import NavBar from "../components/spify/NavBar";
 import ProductCard from "../components/spify/ProductCard";
@@ -60,7 +60,7 @@ export default function Catalog() {
           {/* Category Tabs */}
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {CATEGORIES.map(cat => (
-              <button
+              <motion.button
                 key={cat}
                 onClick={() => setCategory(cat)}
                 className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
@@ -68,9 +68,13 @@ export default function Catalog() {
                     ? "gradient-primary text-white shadow-md"
                     : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-border"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                animate={category === cat ? { scale: 1 } : { scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, damping: 10 }}
               >
                 {cat}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -80,7 +84,7 @@ export default function Catalog() {
             <span className="text-sm text-muted-foreground font-medium">מדרגה:</span>
             <div className="flex gap-2">
               {TIERS.map(t => (
-                <button
+                <motion.button
                   key={t}
                   onClick={() => setTier(t)}
                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
@@ -88,31 +92,49 @@ export default function Catalog() {
                       ? "bg-foreground text-background"
                       : "bg-secondary text-muted-foreground hover:bg-border"
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 10 }}
                 >
                   {t === "הכל" ? "הכל" : `₪${parseInt(t).toLocaleString()}`}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filtered.map((product, i) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <ProductCard
-                product={product}
-                selected={selected?.id === product.id}
-                onSelect={setSelected}
-              />
-            </motion.div>
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={category + tier}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {filtered.map((product, i) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -15 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  delay: i * 0.04,
+                }}
+              >
+                <ProductCard
+                  product={product}
+                  selected={selected?.id === product.id}
+                  onSelect={setSelected}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
