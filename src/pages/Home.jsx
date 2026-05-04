@@ -371,8 +371,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Comparison Table */}
       <section className="py-20 px-4 bg-secondary/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black mb-3">שוברים vs SPIFY</h2>
+            <p className="text-muted-foreground text-lg">למה עובדים אוהבים מתנות אמיתיות יותר</p>
+          </div>
+          <div className="bg-card rounded-3xl border border-border overflow-hidden shadow-sm">
+            {/* Header */}
+            <div className="grid grid-cols-3 text-sm font-bold">
+              <div className="p-4 text-muted-foreground border-b border-border">פרמטר</div>
+              <div className="p-4 text-center border-b border-r border-l border-border text-muted-foreground bg-secondary/50">שוברים</div>
+              <div className="p-4 text-center border-b border-border gradient-primary text-white rounded-tl-none">SPIFY ✨</div>
+            </div>
+            {[
+              { param: "מה העובד מקבל", voucher: "שובר גנרי", spify: "מתנה אמיתית שבחר" },
+              { param: "שווי נתפס", voucher: "₪1,000", spify: "₪2,800+" },
+              { param: "מוטיבציה", voucher: "נמוכה", spify: "גבוהה מאוד" },
+              { param: "תפעול", voucher: "מורכב", spify: "אפס" },
+              { param: "חוויה", voucher: "נמוכה", spify: "גבוהה" },
+            ].map((row, i) => (
+              <div key={i} className={`grid grid-cols-3 text-sm ${i < 4 ? "border-b border-border" : ""}`}>
+                <div className="p-4 font-semibold text-foreground">{row.param}</div>
+                <div className="p-4 text-center text-muted-foreground border-r border-l border-border bg-secondary/30">{row.voucher}</div>
+                <div className="p-4 text-center font-bold text-primary">{row.spify}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl font-black mb-4">איך זה עובד?</h2>
           <p className="text-muted-foreground text-lg mb-16">שלושה שלבים פשוטים</p>
