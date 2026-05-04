@@ -1,28 +1,55 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, CheckCircle, Users, Building2, ChevronLeft, ChevronRight, ArrowLeft, Sparkles } from "lucide-react";
+import { Play, CheckCircle, ChevronLeft, ChevronRight, ArrowLeft, Sparkles, Zap, Plane } from "lucide-react";
 import NavBar from "../components/spify/NavBar";
 import WizardStep from "../components/spify/WizardStep";
 import { Link } from "react-router-dom";
+import { MOCK_PRODUCTS } from "../lib/mockData";
 
 const TIERS = [1000, 2500];
+const CAMPAIGN_TYPES = [
+  { id: "sales", label: "יעדי מכירות", icon: "📈", desc: "תגמול על השגת יעד מכירות רבעוני" },
+  { id: "retention", label: "שימור עובדים", icon: "🤝", desc: "תגמול על נאמנות ומחויבות לאורך זמן" },
+  { id: "performance", label: "ביצועים אישיים", icon: "🏆", desc: "תגמול על ביצועים יוצאי דופן" },
+  { id: "team", label: "הצלחה צוותית", icon: "👥", desc: "תגמול על עמידה ביעד צוותי" },
+];
+
+const STEP_LABELS = ["סוג קמפיין", "פרטי קמפיין", "מדרגות", "סוג מתנות", "תצוגת מתנות", "עלות", "ערך"];
 
 export default function Home() {
   const [wizardStep, setWizardStep] = useState(null);
-  const [form, setForm] = useState({ employees: 50, successRate: 80, tier: 1000 });
+  const [form, setForm] = useState({
+    campaignType: null,
+    employees: 50,
+    successRate: 80,
+    tier: 1000,
+    rewardType: null,
+  });
   const wizardRef = useRef(null);
 
   const expectedRecipients = Math.round(form.employees * (form.successRate / 100));
   const totalCost = expectedRecipients * form.tier;
-  const perceivedTotal = expectedRecipients * (form.tier === 1000 ? 1900 : 5000);
-  const roi = form.tier > 0 ? (perceivedTotal / totalCost).toFixed(1) : 0;
+  const avgPerceived = form.tier === 1000 ? 1900 : 6000;
+  const perceivedTotal = expectedRecipients * avgPerceived;
+  const multiplier = totalCost > 0 ? (perceivedTotal / totalCost).toFixed(1) : 0;
+
+  // Products for preview (step 5)
+  const previewProducts = MOCK_PRODUCTS.filter(p =>
+    p.price_tier === form.tier &&
+    p.active &&
+    (!form.rewardType || p.rewardType === form.rewardType)
+  ).slice(0, 3);
 
   const startWizard = () => {
     setWizardStep(1);
     setTimeout(() => wizardRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   };
 
-  const STEP_LABELS = ["פרטי קמפיין", "סיכום ROI", "בחירת מדרגה", "אישור"];
+  const canNext = () => {
+    if (wizardStep === 1) return !!form.campaignType;
+    if (wizardStep === 4) return !!form.rewardType;
+    return true;
+  };
 
   return (
     <div className="min-h-screen bg-background font-heebo">
@@ -30,27 +57,13 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Video BG */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="https://media.base44.com/videos/public/69f8ef4e14a99d2803ea13b4/19289e39a_____.mp4" type="video/mp4" />
         </video>
-
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
-        {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
               <Sparkles className="w-4 h-4 text-gold" />
               <span className="text-sm text-white/90 font-medium">פלטפורמת התמריצים המובילה בישראל</span>
@@ -83,7 +96,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Social Proof */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
               <div className="flex items-center gap-2 text-white/70">
                 <CheckCircle className="w-4 h-4 text-green-400" />
@@ -97,12 +109,7 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
+        <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center pt-2">
             <div className="w-1 h-2 bg-white/60 rounded-full" />
           </div>
@@ -113,12 +120,7 @@ export default function Home() {
       <section ref={wizardRef} className="py-20 px-4 bg-background">
         <div className="max-w-3xl mx-auto">
           {wizardStep === null ? (
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <motion.div className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="text-4xl font-black mb-4">בנה קמפיין בדקות</h2>
               <p className="text-muted-foreground text-lg mb-8">המנהל מגדיר — המערכת עושה הכל</p>
               <button onClick={startWizard} className="gradient-primary text-white px-8 py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-all">
@@ -134,77 +136,72 @@ export default function Home() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Steps Indicator */}
-                <div className="flex items-center justify-center gap-4 mb-10">
+                {/* Steps Indicator - compact for 7 steps */}
+                <div className="flex items-center justify-center gap-1 mb-10 overflow-x-auto pb-2">
                   {STEP_LABELS.map((label, i) => (
                     <React.Fragment key={i}>
-                      <WizardStep step={i + 1} currentStep={wizardStep} label={label} />
+                      <WizardStep step={i + 1} currentStep={wizardStep} label={i + 1 === wizardStep ? label : ""} />
                       {i < STEP_LABELS.length - 1 && (
-                        <div className={`h-px flex-1 max-w-8 transition-all duration-300 ${wizardStep > i + 1 ? "bg-primary" : "bg-border"}`} />
+                        <div className={`h-px w-4 flex-shrink-0 transition-all duration-300 ${wizardStep > i + 1 ? "bg-primary" : "bg-border"}`} />
                       )}
                     </React.Fragment>
                   ))}
                 </div>
 
-                {/* Step 1 */}
+                {/* STEP 1 - Campaign Type */}
                 {wizardStep === 1 && (
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-2xl font-black mb-2">סוג קמפיין</h3>
+                    <p className="text-muted-foreground mb-8">על מה אתה רוצה לתגמל?</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      {CAMPAIGN_TYPES.map(type => (
+                        <button
+                          key={type.id}
+                          onClick={() => setForm(f => ({ ...f, campaignType: type.id }))}
+                          className={`p-5 rounded-2xl border-2 text-right transition-all duration-200 ${
+                            form.campaignType === type.id
+                              ? "border-primary bg-primary/5 shadow-md"
+                              : "border-border hover:border-primary/40"
+                          }`}
+                        >
+                          <div className="text-3xl mb-2">{type.icon}</div>
+                          <div className="font-bold text-sm mb-1">{type.label}</div>
+                          <div className="text-xs text-muted-foreground">{type.desc}</div>
+                          {form.campaignType === type.id && <div className="mt-2 text-xs font-bold text-primary">✓ נבחר</div>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2 - Employees + Success Rate */}
+                {wizardStep === 2 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
                     <h3 className="text-2xl font-black mb-2">פרטי הקמפיין</h3>
                     <p className="text-muted-foreground mb-8">הגדר את היקף הקמפיין</p>
                     <div className="space-y-6">
                       <div>
                         <label className="block text-sm font-semibold mb-3">מספר עובדים: <span className="text-primary">{form.employees}</span></label>
-                        <input
-                          type="range" min="5" max="500" value={form.employees}
+                        <input type="range" min="5" max="500" value={form.employees}
                           onChange={e => setForm(f => ({ ...f, employees: +e.target.value }))}
-                          className="w-full accent-primary"
-                        />
-                        <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                          <span>5</span><span>500</span>
-                        </div>
+                          className="w-full accent-primary" />
+                        <div className="flex justify-between text-xs text-muted-foreground mt-1"><span>5</span><span>500</span></div>
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-3">אחוז הצלחה משוער: <span className="text-primary">{form.successRate}%</span></label>
-                        <input
-                          type="range" min="10" max="100" value={form.successRate}
+                        <input type="range" min="10" max="100" value={form.successRate}
                           onChange={e => setForm(f => ({ ...f, successRate: +e.target.value }))}
-                          className="w-full accent-primary"
-                        />
-                        <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                          <span>10%</span><span>100%</span>
-                        </div>
+                          className="w-full accent-primary" />
+                        <div className="flex justify-between text-xs text-muted-foreground mt-1"><span>10%</span><span>100%</span></div>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Step 2 */}
-                {wizardStep === 2 && (
-                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
-                    <h3 className="text-2xl font-black mb-2">סיכום ROI</h3>
-                    <p className="text-muted-foreground mb-8">ראה בדיוק מה ההשקעה מביאה</p>
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                      {[
-                        { label: "אתה משלם", value: `₪${totalCost.toLocaleString()}`, color: "bg-red-50 text-red-700" },
-                        { label: "עובדים מקבלים", value: `₪${perceivedTotal.toLocaleString()}`, color: "bg-green-50 text-green-700" },
-                        { label: "פי X ערך", value: `×${roi}`, color: "bg-purple-50 text-purple-700" },
-                      ].map(item => (
-                        <div key={item.label} className={`rounded-2xl p-4 text-center ${item.color}`}>
-                          <div className="text-2xl font-black">{item.value}</div>
-                          <div className="text-xs font-medium mt-1">{item.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="bg-secondary rounded-2xl p-4 text-sm text-muted-foreground text-center">
-                      מתוך {form.employees} עובדים, <strong className="text-foreground">{expectedRecipients}</strong> צפויים להשיג יעד
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 3 */}
+                {/* STEP 3 - Tiers */}
                 {wizardStep === 3 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
-                    <h3 className="text-2xl font-black mb-2">בחירת מדרגה</h3>
+                    <h3 className="text-2xl font-black mb-2">מדרגות תגמול</h3>
                     <p className="text-muted-foreground mb-8">בחר את ערך המתנה לעובד</p>
                     <div className="grid grid-cols-2 gap-4">
                       {TIERS.map(tier => (
@@ -212,50 +209,144 @@ export default function Home() {
                           key={tier}
                           onClick={() => setForm(f => ({ ...f, tier }))}
                           className={`p-6 rounded-2xl border-2 transition-all duration-200 text-right ${
-                            form.tier === tier
-                              ? "border-primary bg-primary/5 shadow-md"
-                              : "border-border hover:border-primary/40"
+                            form.tier === tier ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
                           }`}
                         >
                           <div className="text-3xl font-black text-primary mb-1">₪{tier.toLocaleString()}</div>
                           <div className="text-sm text-muted-foreground">לעובד</div>
-                          {form.tier === tier && (
-                            <div className="mt-2 text-xs font-bold text-primary">✓ נבחר</div>
-                          )}
+                          {form.tier === tier && <div className="mt-2 text-xs font-bold text-primary">✓ נבחר</div>}
                         </button>
                       ))}
                     </div>
-                    <div className="mt-6 bg-green-50 border border-green-200 rounded-2xl p-4 text-sm text-green-700 font-medium text-center">
+                    <div className="mt-4 bg-green-50 border border-green-200 rounded-2xl p-4 text-sm text-green-700 font-medium text-center">
                       ✔ אתה משלם רק על מי שבחר מתנה
                     </div>
                   </div>
                 )}
 
-                {/* Step 4 */}
+                {/* STEP 4 - Reward Type */}
                 {wizardStep === 4 && (
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-2xl font-black mb-2">סוג מתנות</h3>
+                    <p className="text-muted-foreground mb-8">איזה סוג מתנות יציג הקמפיין?</p>
+                    <div className="grid grid-cols-2 gap-6">
+                      {[
+                        { id: "electric", label: "מוצרי חשמל", icon: <Zap className="w-10 h-10" />, desc: "אוזניות, שעונים, מחשבים ועוד" },
+                        { id: "vacation", label: "חופשות", icon: <Plane className="w-10 h-10" />, desc: "ספא, נסיעות, חוויות בלתי נשכחות" },
+                      ].map(type => (
+                        <button
+                          key={type.id}
+                          onClick={() => setForm(f => ({ ...f, rewardType: type.id }))}
+                          className={`p-8 rounded-2xl border-2 text-center transition-all duration-200 ${
+                            form.rewardType === type.id ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
+                          }`}
+                        >
+                          <div className={`mb-4 mx-auto w-fit ${form.rewardType === type.id ? "text-primary" : "text-muted-foreground"}`}>
+                            {type.icon}
+                          </div>
+                          <div className="font-black text-lg mb-1">{type.label}</div>
+                          <div className="text-xs text-muted-foreground">{type.desc}</div>
+                          {form.rewardType === type.id && <div className="mt-3 text-xs font-bold text-primary">✓ נבחר</div>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 5 - Gift Preview */}
+                {wizardStep === 5 && (
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-2xl font-black mb-2">כך יראו המתנות לעובדים</h3>
+                    <p className="text-muted-foreground mb-6">מתנות אמיתיות מהקטלוג למדרגת ₪{form.tier.toLocaleString()}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {previewProducts.length > 0 ? previewProducts.map(p => (
+                        <div key={p.id} className="rounded-2xl border border-border overflow-hidden bg-background">
+                          <div className="h-36 overflow-hidden">
+                            <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="p-3">
+                            <div className="font-bold text-sm mb-1 line-clamp-1">{p.title}</div>
+                            <div className="text-2xl font-black text-foreground">₪{p.perceived.toLocaleString()}</div>
+                            <div className="text-xs text-muted-foreground mb-3">שווי נתפס</div>
+                            <div className="w-full py-2 rounded-xl bg-secondary text-xs font-semibold text-center text-muted-foreground cursor-default">
+                              בחר מתנה זו
+                            </div>
+                          </div>
+                        </div>
+                      )) : (
+                        <div className="col-span-3 text-center py-8 text-muted-foreground">
+                          <div className="text-4xl mb-2">🎁</div>
+                          <p>אין מוצרים בקטגוריה זו למדרגה זו</p>
+                        </div>
+                      )}
+                    </div>
+                    {previewProducts.length > 0 && (
+                      <div className="mt-4 text-center text-sm text-muted-foreground">
+                        + עוד מוצרים בקטלוג המלא
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* STEP 6 - Cost */}
+                {wizardStep === 6 && (
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-2xl font-black mb-2">עלות בפועל</h3>
+                    <p className="text-muted-foreground mb-8">תשלם רק על עובדים שבחרו מתנה</p>
+                    <div className="space-y-4 mb-6">
+                      <div className="flex justify-between items-center p-4 bg-secondary rounded-2xl">
+                        <span className="text-muted-foreground">עובדים שישיגו יעד</span>
+                        <span className="font-black text-xl">{expectedRecipients}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-4 bg-secondary rounded-2xl">
+                        <span className="text-muted-foreground">מדרגה לעובד</span>
+                        <span className="font-black text-xl">₪{form.tier.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-4 gradient-primary rounded-2xl text-white">
+                        <span className="font-semibold">סכום כולל</span>
+                        <span className="font-black text-2xl">₪{totalCost.toLocaleString()}</span>
+                      </div>
+                    </div>
+                    <div className="bg-green-50 border border-green-200 rounded-2xl p-4 text-sm text-green-700 font-medium text-center">
+                      ✔ אתה משלם רק על מי שבחר — לא על כל העובדים
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 7 - Value */}
+                {wizardStep === 7 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm text-center">
                     <div className="w-20 h-20 gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-white" />
                     </div>
                     <h3 className="text-2xl font-black mb-2">הקמפיין מוכן!</h3>
                     <p className="text-muted-foreground mb-8">הכל הוגדר — המערכת תעשה את השאר</p>
-                    <div className="bg-secondary rounded-2xl p-6 text-right mb-8 space-y-3">
-                      <div className="flex justify-between"><span className="text-muted-foreground">עובדים</span><span className="font-bold">{form.employees}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">מדרגה</span><span className="font-bold">₪{form.tier.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">תקציב צפוי</span><span className="font-bold">₪{totalCost.toLocaleString()}</span></div>
-                      <div className="flex justify-between"><span className="text-muted-foreground">ROI</span><span className="font-black text-primary">×{roi}</span></div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="bg-purple-50 rounded-2xl p-5 text-center">
+                        <div className="text-3xl font-black text-purple-700">₪{perceivedTotal.toLocaleString()}</div>
+                        <div className="text-xs font-medium text-purple-600 mt-1">שווי כולל שיקבלו העובדים</div>
+                      </div>
+                      <div className="bg-green-50 rounded-2xl p-5 text-center">
+                        <div className="text-3xl font-black text-green-700">×{multiplier}</div>
+                        <div className="text-xs font-medium text-green-600 mt-1">מכפיל ערך</div>
+                      </div>
                     </div>
-                    <Link
-                      to="/dashboard"
-                      className="block w-full gradient-primary text-white py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-all"
-                    >
+
+                    <div className="bg-secondary rounded-2xl p-5 text-right mb-8 space-y-3">
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">עובדים</span><span className="font-bold">{form.employees}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">מדרגה</span><span className="font-bold">₪{form.tier.toLocaleString()}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">סוג מתנות</span><span className="font-bold">{form.rewardType === "electric" ? "מוצרי חשמל" : "חופשות"}</span></div>
+                      <div className="flex justify-between text-sm"><span className="text-muted-foreground">עלות צפויה</span><span className="font-bold">₪{totalCost.toLocaleString()}</span></div>
+                    </div>
+                    <Link to="/dashboard" className="block w-full gradient-primary text-white py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-all">
                       צפה בדשבורד
                     </Link>
                   </div>
                 )}
 
                 {/* Navigation */}
-                {wizardStep < 4 && (
+                {wizardStep < 7 && (
                   <div className="flex items-center justify-between mt-6">
                     <button
                       onClick={() => setWizardStep(s => Math.max(1, s - 1))}
@@ -266,7 +357,8 @@ export default function Home() {
                     </button>
                     <button
                       onClick={() => setWizardStep(s => s + 1)}
-                      className="flex items-center gap-2 gradient-primary text-white px-8 py-3 rounded-2xl font-semibold hover:opacity-90 transition-all"
+                      disabled={!canNext()}
+                      className="flex items-center gap-2 gradient-primary text-white px-8 py-3 rounded-2xl font-semibold hover:opacity-90 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       המשך
                       <ChevronLeft className="w-4 h-4" />

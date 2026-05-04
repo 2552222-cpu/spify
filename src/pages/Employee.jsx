@@ -156,7 +156,7 @@ export default function Employee() {
         </motion.div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-10">
+      <div className="max-w-5xl mx-auto px-4 py-10 pb-32">
         {/* Recommended */}
         {RECOMMENDED && (
           <motion.div
@@ -205,6 +205,38 @@ export default function Employee() {
           </div>
         </div>
       </div>
+
+      {/* Sticky bottom: selected gift + change button */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed bottom-0 left-0 right-0 z-40 glass border-t border-border px-4 py-4"
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+          >
+            <div className="max-w-5xl mx-auto flex items-center gap-4">
+              <img src={selected.image} alt={selected.title} className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-sm truncate">{selected.title}</div>
+                <div className="text-xs text-muted-foreground">שווי נתפס: ₪{selected.perceived.toLocaleString()}</div>
+              </div>
+              <button
+                onClick={() => setSelected(null)}
+                className="text-xs text-muted-foreground underline flex-shrink-0"
+              >
+                בחר מתנה אחרת
+              </button>
+              <button
+                onClick={() => setStep("confirm")}
+                className="gradient-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm flex-shrink-0 hover:opacity-90 transition-all"
+              >
+                המשך
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -4,6 +4,7 @@ export const MOCK_PRODUCTS = [
     title: "AirPods Pro 2",
     description: "אוזניות אלחוטיות עם ביטול רעשים אקטיבי, שקיפות מתקדמת, ועד 30 שעות סוללה",
     category: "אלקטרוניקה",
+    rewardType: "electric",
     price_tier: 1000,
     consumer_price: 899,
     perceived: 1800,
@@ -19,6 +20,7 @@ export const MOCK_PRODUCTS = [
     title: "שובר ספא פרמיום",
     description: "יום פינוק מלא בספא 5 כוכבים - עיסוי שוודי, פילינג, טיפול פנים ועוד",
     category: "בריאות",
+    rewardType: "vacation",
     price_tier: 1000,
     consumer_price: 750,
     perceived: 2200,
@@ -34,6 +36,7 @@ export const MOCK_PRODUCTS = [
     title: "שעון חכם Galaxy Watch 6",
     description: "שעון חכם עם ניטור בריאות מתקדם, GPS, עמיד במים, מסך AMOLED",
     category: "אלקטרוניקה",
+    rewardType: "electric",
     price_tier: 1000,
     consumer_price: 1100,
     perceived: 1600,
@@ -49,6 +52,7 @@ export const MOCK_PRODUCTS = [
     title: "iPad Air 11\"",
     description: "טאבלט Apple M2, 256GB, Wi-Fi, מסך Liquid Retina, מצלמה 12MP",
     category: "אלקטרוניקה",
+    rewardType: "electric",
     price_tier: 2500,
     consumer_price: 2999,
     perceived: 4500,
@@ -64,6 +68,7 @@ export const MOCK_PRODUCTS = [
     title: "חופשה בדובאי לזוג",
     description: "3 לילות במלון 5 כוכבים בדובאי, כולל טיסות, ארוחות בוקר ומעבר שדה תעופה",
     category: "נסיעות",
+    rewardType: "vacation",
     price_tier: 2500,
     consumer_price: 4500,
     perceived: 8000,
@@ -79,6 +84,7 @@ export const MOCK_PRODUCTS = [
     title: "מכונת קפה DeLonghi",
     description: "מכונת קפה אוטומטית מלאה עם מטחנה מובנית, קיטור ועד 15 בר לחץ",
     category: "בית וגינה",
+    rewardType: "electric",
     price_tier: 1000,
     consumer_price: 1200,
     perceived: 1800,
@@ -94,6 +100,7 @@ export const MOCK_PRODUCTS = [
     title: "MacBook Air M3",
     description: "מחשב נייד Apple M3, 8GB RAM, 256GB SSD, מסך 13.6\", סוללה 18 שעות",
     category: "אלקטרוניקה",
+    rewardType: "electric",
     price_tier: 2500,
     consumer_price: 5499,
     perceived: 7500,
@@ -109,6 +116,7 @@ export const MOCK_PRODUCTS = [
     title: "ערכת כושר פרמיום",
     description: "כדורי כושר, גומיות, מתקן עליות, חגורת הרמה, מדריך אימון דיגיטלי",
     category: "ספורט",
+    rewardType: "electric",
     price_tier: 1000,
     consumer_price: 680,
     perceived: 1400,
@@ -117,6 +125,38 @@ export const MOCK_PRODUCTS = [
     stock: 20,
     popular: false,
     badge: null,
+    active: true
+  },
+  {
+    id: "p9",
+    title: "סופ\"ש בצפון",
+    description: "לינת סוויטה ב-Airbnb יוקרתי בגליל, ארוחת בוקר + טיפול זוגי במקום",
+    category: "נסיעות",
+    rewardType: "vacation",
+    price_tier: 1000,
+    consumer_price: 1100,
+    perceived: 2000,
+    warranty: "בתוקף שנה",
+    image: "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=400&q=80",
+    stock: 30,
+    popular: true,
+    badge: "הבחירה המועדפת",
+    active: true
+  },
+  {
+    id: "p10",
+    title: "שבוע באירופה",
+    description: "7 לילות במלון 4 כוכבים בפריז או ברומא, כולל טיסות ישירות וארוחות בוקר",
+    category: "נסיעות",
+    rewardType: "vacation",
+    price_tier: 2500,
+    consumer_price: 6000,
+    perceived: 10000,
+    warranty: "ביטוח נסיעות כלול",
+    image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80",
+    stock: 10,
+    popular: true,
+    badge: "BEST SELLER",
     active: true
   }
 ];
@@ -146,14 +186,14 @@ export const MOCK_ORDERS = [
 
 export const STATUS_LABELS = {
   pending: "ממתין",
+  selected: "נבחר",
   ordered: "הוזמן",
   shipped: "בדרך",
-  delivered: "נמסר"
 };
 
 export const STATUS_COLORS = {
   pending: "bg-amber-100 text-amber-700",
-  ordered: "bg-blue-100 text-blue-700",
+  selected: "bg-blue-100 text-blue-700",
+  ordered: "bg-indigo-100 text-indigo-700",
   shipped: "bg-purple-100 text-purple-700",
-  delivered: "bg-green-100 text-green-700"
 };

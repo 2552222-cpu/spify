@@ -107,7 +107,7 @@ export default function Admin() {
     setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
   };
 
-  const STATUS_FLOW = ["pending", "ordered", "shipped", "delivered"];
+  const STATUS_FLOW = ["pending", "selected", "ordered", "shipped"];
 
   // Login Screen
   if (!authed) {
@@ -423,15 +423,39 @@ export default function Admin() {
                   </select>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    id="active"
-                    checked={form.active}
-                    onChange={e => setForm(f => ({ ...f, active: e.target.checked }))}
-                    className="w-4 h-4 accent-primary"
-                  />
-                  <label htmlFor="active" className="text-sm font-medium">מוצר פעיל</label>
+                <div>
+                  <label className="block text-sm font-semibold mb-2">סוג מתנה</label>
+                  <select
+                    value={form.rewardType || "electric"}
+                    onChange={e => setForm(f => ({ ...f, rewardType: e.target.value }))}
+                    className="w-full bg-secondary border border-border rounded-xl py-2.5 px-3 text-sm focus:outline-none"
+                  >
+                    <option value="electric">מוצרי חשמל</option>
+                    <option value="vacation">חופשות</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="active"
+                      checked={form.active}
+                      onChange={e => setForm(f => ({ ...f, active: e.target.checked }))}
+                      className="w-4 h-4 accent-primary"
+                    />
+                    <label htmlFor="active" className="text-sm font-medium">מוצר פעיל</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="popular"
+                      checked={form.popular || false}
+                      onChange={e => setForm(f => ({ ...f, popular: e.target.checked }))}
+                      className="w-4 h-4 accent-primary"
+                    />
+                    <label htmlFor="popular" className="text-sm font-medium">פופולרי</label>
+                  </div>
                 </div>
               </div>
 
