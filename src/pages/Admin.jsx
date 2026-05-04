@@ -13,8 +13,9 @@ const BADGES = ["", "BEST SELLER", "הבחירה המועדפת", "חדש", "מ�
 
 const emptyProduct = {
   title: "", description: "", category: "אלקטרוניקה",
-  price_tier: 1000, consumer_price: 0, perceived: 0,
-  warranty: "שנה אחריות", stock: 10, popular: false,
+  rewardType: "electric",
+  price_tier: 1000, consumer_price: 0, cost: 0,
+  warranty: "שנה אחריות", stock: 10, popular: false, top: false,
   badge: "", image: "", active: true
 };
 
@@ -227,12 +228,15 @@ export default function Admin() {
                           <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium flex-shrink-0">{product.badge}</span>
                         )}
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-                        <span>₪{product.price_tier} מדרגה</span>
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 flex-wrap">
+                        <span>מדרגה ₪{product.price_tier}</span>
                         <span>·</span>
-                        <span>₪{product.perceived} נתפס</span>
+                        <span>צרכן ₪{product.consumer_price?.toLocaleString()}</span>
                         <span>·</span>
-                        <span>{product.stock} במלאי</span>
+                        <span className="text-red-500 font-semibold">עלות ₪{product.cost?.toLocaleString() || "—"}</span>
+                        <span>·</span>
+                        <span>{product.stock} יח׳</span>
+                        {product.top && <span className="text-orange-500 font-bold">🔥 TOP</span>}
                       </div>
                       <div className="flex gap-2">
                         <button
@@ -373,8 +377,8 @@ export default function Admin() {
 
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { key: "consumer_price", label: "מחיר קמעונאי ₪" },
-                    { key: "perceived", label: "שווי נתפס ₪" },
+                    { key: "consumer_price", label: "מחיר צרכן ₪" },
+                    { key: "cost", label: "מחיר עלות ₪ (אדמין בלבד)" },
                     { key: "stock", label: "מלאי" },
                   ].map(field => (
                     <div key={field.key}>
@@ -455,6 +459,16 @@ export default function Admin() {
                       className="w-4 h-4 accent-primary"
                     />
                     <label htmlFor="popular" className="text-sm font-medium">פופולרי</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="top"
+                      checked={form.top || false}
+                      onChange={e => setForm(f => ({ ...f, top: e.target.checked }))}
+                      className="w-4 h-4 accent-primary"
+                    />
+                    <label htmlFor="top" className="text-sm font-medium">🔥 TOP מוצר</label>
                   </div>
                 </div>
               </div>
