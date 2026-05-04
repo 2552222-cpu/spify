@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const LOGO_NEW = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/a1f0df9ea_500x5003.png";
+const LOGO_NEW = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/924b605e9_image.png";
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
