@@ -34,12 +34,11 @@ export default function NavBar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <img
-            src={LOGO_NEW}
-            alt="SPIFY"
-            className="h-11 w-auto object-contain transition-all duration-300 rounded-[15px]"
-          />
+        <Link to="/" className="flex items-center gap-1">
+          <span className={`text-xl font-black tracking-tight ${scrolled ? "text-foreground" : "text-white"}`}>
+            SPIFY
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 flex-shrink-0" />
         </Link>
 
         {/* Desktop Links */}
