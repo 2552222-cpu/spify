@@ -44,12 +44,12 @@ export default function Home() {
     });
   };
 
-  // Products for preview (step 5)
+  // Products for preview (step 5) - show from all selected tiers
   const previewProducts = MOCK_PRODUCTS.filter(p =>
-    p.price_tier === form.tier &&
+    form.tiers.includes(p.price_tier) &&
     p.active &&
     (!form.rewardType || p.rewardType === form.rewardType)
-  ).slice(0, 3);
+  ).slice(0, 6);
 
   const startWizard = () => {
     setWizardStep(1);
@@ -334,7 +334,7 @@ export default function Home() {
                 {wizardStep === 6 && (
                   <div className="bg-white rounded-3xl p-8 shadow-[0_2px_20px_rgba(0,0,0,0.06)]">
                     <h3 className="text-2xl font-black mb-2">כך יראו המתנות לעובדים</h3>
-                    <p className="text-muted-foreground mb-6">מתנות אמיתיות מהקטלוג למדרגת ₪{form.tier.toLocaleString()}</p>
+                    <p className="text-muted-foreground mb-6">מתנות אמיתיות מהקטלוג — {form.tiers.map(t => `₪${t.toLocaleString()}`).join(' וגם ')}</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {previewProducts.length > 0 ? previewProducts.map(p => (
                         <div key={p.id} className="rounded-2xl border border-border overflow-hidden bg-background">
