@@ -5,6 +5,7 @@ import {
   Eye, EyeOff, ShieldCheck, X, Check, Image as ImageIcon
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import AdminDashboard from "../components/spify/AdminDashboard";
 import { MOCK_ORDERS, STATUS_LABELS, STATUS_COLORS } from "../lib/mockData";
 
 const ADMIN_PASSWORD = "BOOMBUY123";
@@ -182,7 +183,7 @@ export default function Admin() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Tabs */}
         <div className="flex gap-2 mb-8 bg-secondary rounded-2xl p-1 w-fit">
-          {[["products", "מוצרים"], ["orders", "הזמנות"]].map(([key, label]) => (
+          {[["dashboard", "דשבורד"], ["products", "מוצרים"], ["orders", "הזמנות"]].map(([key, label]) => (
             <button
               key={key}
               onClick={() => setTab(key)}
@@ -192,6 +193,11 @@ export default function Admin() {
             </button>
           ))}
         </div>
+
+        {/* Dashboard Tab */}
+        {tab === "dashboard" && (
+          <AdminDashboard />
+        )}
 
         {/* Products Tab */}
         {tab === "products" && (
