@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 
 const LOGO_WHITE = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/7efc36d65_500x400.png";
 const LOGO_BLACK = "https://media.base44.com/images/public/69f8ef4e14a99d2803ea13b4/e03d191e3_500x4001.png";
+// החלף את הלוגו כשהקישור החדש יסופק
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +40,7 @@ export default function NavBar() {
           <img
             src={scrolled ? LOGO_BLACK : LOGO_WHITE}
             alt="SPIFY"
-            className="h-9 w-auto object-contain transition-all duration-300"
+            className="h-11 w-auto object-contain transition-all duration-300 rounded-[15px]"
           />
         </Link>
 

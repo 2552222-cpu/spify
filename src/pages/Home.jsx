@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, CheckCircle, ChevronLeft, ChevronRight, ArrowLeft, Sparkles, Zap, Plane } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import NavBar from "../components/spify/NavBar";
 import WizardStep from "../components/spify/WizardStep";
 import { Link } from "react-router-dom";
@@ -65,11 +65,6 @@ export default function Home() {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
-              <Sparkles className="w-4 h-4 text-gold" />
-              <span className="text-sm text-white/90 font-medium">פלטפורמת התמריצים המובילה בישראל</span>
-            </div>
-
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
               עובדים לא מתאמצים<br />
               בשביל שובר<br />
@@ -83,27 +78,23 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={startWizard}
-                className="group flex items-center gap-3 gradient-primary text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all hover:opacity-90 hover:scale-105 shadow-2xl shadow-primary/40"
+                className="gradient-primary text-white px-8 py-4 rounded-2xl text-lg font-bold transition-all hover:opacity-90 hover:scale-105 shadow-2xl shadow-primary/40"
               >
-                <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 הפעל דמו
               </button>
               <Link
                 to="/catalog"
-                className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white/20 transition-all"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-white/20 transition-all"
               >
                 צפה בקטלוג
-                <ArrowLeft className="w-5 h-5" />
               </Link>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
-              <div className="flex items-center gap-2 text-white/70">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+              <div className="text-white/70">
                 <span className="text-sm"><strong className="text-white">1,248</strong> עובדים קיבלו מתנה</span>
               </div>
-              <div className="flex items-center gap-2 text-white/70">
-                <CheckCircle className="w-4 h-4 text-green-400" />
+              <div className="text-white/70">
                 <span className="text-sm"><strong className="text-white">14</strong> חברות משתמשות</span>
               </div>
             </div>
@@ -280,8 +271,8 @@ export default function Home() {
                     <p className="text-muted-foreground mb-8">איזה סוג מתנות יציג הקמפיין?</p>
                     <div className="grid grid-cols-2 gap-6">
                       {[
-                        { id: "electric", label: "מוצרי חשמל", icon: <Zap className="w-10 h-10" />, desc: "אוזניות, שעונים, מחשבים ועוד" },
-                        { id: "vacation", label: "חופשות", icon: <Plane className="w-10 h-10" />, desc: "ספא, נסיעות, חוויות בלתי נשכחות" },
+                        { id: "electric", label: "מוצרי חשמל", emoji: "⚡", desc: "אוזניות, שעונים, מחשבים ועוד" },
+                        { id: "vacation", label: "חופשות", emoji: "✈️", desc: "ספא, נסיעות, חוויות בלתי נשכחות" },
                       ].map(type => (
                         <button
                           key={type.id}
@@ -290,9 +281,7 @@ export default function Home() {
                             form.rewardType === type.id ? "border-primary bg-primary/5 shadow-md" : "border-border hover:border-primary/40"
                           }`}
                         >
-                          <div className={`mb-4 mx-auto w-fit ${form.rewardType === type.id ? "text-primary" : "text-muted-foreground"}`}>
-                            {type.icon}
-                          </div>
+                          <div className="text-4xl mb-4">{type.emoji}</div>
                           <div className="font-black text-lg mb-1">{type.label}</div>
                           <div className="text-xs text-muted-foreground">{type.desc}</div>
                           {form.rewardType === type.id && <div className="mt-3 text-xs font-bold text-primary">✓ נבחר</div>}
@@ -366,7 +355,7 @@ export default function Home() {
                 {wizardStep === 8 && (
                   <div className="bg-card rounded-3xl p-8 border border-border shadow-sm text-center">
                     <div className="w-20 h-20 gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-10 h-10 text-white" />
+                      <span className="text-3xl">✓</span>
                     </div>
                     <h3 className="text-2xl font-black mb-2">הקמפיין מוכן!</h3>
                     <p className="text-muted-foreground mb-8">הכל הוגדר — המערכת תעשה את השאר</p>
