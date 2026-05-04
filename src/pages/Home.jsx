@@ -58,8 +58,8 @@ export default function Home() {
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
               עובדים לא מתאמצים<br />
-              בשביל <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">שובר</span><br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">הם מתאמצים לנצח</span>
+              בשביל שובר<br />
+              הם מתאמצים <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-purple-400">לנצח</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/70 mb-10 max-w-2xl mx-auto">
