@@ -304,7 +304,7 @@ export default function Home() {
                           </div>
                           <div className="p-3">
                             <div className="font-bold text-sm mb-1 line-clamp-1">{p.title}</div>
-                            <div className="text-2xl font-black text-foreground">₪{p.perceived.toLocaleString()}</div>
+                            <div className="text-2xl font-black text-foreground">₪{(p.perceived ?? p.consumer_price ?? 0).toLocaleString()}</div>
                             <div className="text-xs text-muted-foreground mb-3">שווי נתפס</div>
                             <div className="w-full py-2 rounded-xl bg-secondary text-xs font-semibold text-center text-muted-foreground cursor-default">
                               בחר מתנה זו
