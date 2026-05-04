@@ -1,0 +1,54 @@
+{
+  "name": "Campaign",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "employee_count": {
+      "type": "number"
+    },
+    "success_rate": {
+      "type": "number"
+    },
+    "price_tier": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "completed"
+      ],
+      "default": "draft"
+    },
+    "sent_count": {
+      "type": "number",
+      "default": 0
+    },
+    "opened_count": {
+      "type": "number",
+      "default": 0
+    },
+    "selected_count": {
+      "type": "number",
+      "default": 0
+    },
+    "budget_expected": {
+      "type": "number"
+    },
+    "budget_actual": {
+      "type": "number"
+    },
+    "deadline_days": {
+      "type": "number",
+      "default": 14
+    }
+  },
+  "required": [
+    "name",
+    "employee_count",
+    "price_tier"
+  ]
+}

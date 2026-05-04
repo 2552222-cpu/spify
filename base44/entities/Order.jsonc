@@ -1,0 +1,53 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "employee_name": {
+      "type": "string"
+    },
+    "employee_email": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_title": {
+      "type": "string"
+    },
+    "price_tier": {
+      "type": "number"
+    },
+    "perceived": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "ordered",
+        "shipped",
+        "delivered"
+      ],
+      "default": "pending"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "delivery_address": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "selected_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "employee_name",
+    "product_id",
+    "product_title",
+    "price_tier"
+  ]
+}

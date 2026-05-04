@@ -1,0 +1,159 @@
+export const MOCK_PRODUCTS = [
+  {
+    id: "p1",
+    title: "AirPods Pro 2",
+    description: "אוזניות אלחוטיות עם ביטול רעשים אקטיבי, שקיפות מתקדמת, ועד 30 שעות סוללה",
+    category: "אלקטרוניקה",
+    price_tier: 1000,
+    consumer_price: 899,
+    perceived: 1800,
+    warranty: "שנה אחריות יבואן",
+    image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400&q=80",
+    stock: 12,
+    popular: true,
+    badge: "BEST SELLER",
+    active: true
+  },
+  {
+    id: "p2",
+    title: "שובר ספא פרמיום",
+    description: "יום פינוק מלא בספא 5 כוכבים - עיסוי שוודי, פילינג, טיפול פנים ועוד",
+    category: "בריאות",
+    price_tier: 1000,
+    consumer_price: 750,
+    perceived: 2200,
+    warranty: "בתוקף שנה",
+    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=80",
+    stock: 50,
+    popular: true,
+    badge: "הבחירה המועדפת",
+    active: true
+  },
+  {
+    id: "p3",
+    title: "שעון חכם Galaxy Watch 6",
+    description: "שעון חכם עם ניטור בריאות מתקדם, GPS, עמיד במים, מסך AMOLED",
+    category: "אלקטרוניקה",
+    price_tier: 1000,
+    consumer_price: 1100,
+    perceived: 1600,
+    warranty: "שנה אחריות יבואן",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80",
+    stock: 3,
+    popular: false,
+    badge: null,
+    active: true
+  },
+  {
+    id: "p4",
+    title: "iPad Air 11\"",
+    description: "טאבלט Apple M2, 256GB, Wi-Fi, מסך Liquid Retina, מצלמה 12MP",
+    category: "אלקטרוניקה",
+    price_tier: 2500,
+    consumer_price: 2999,
+    perceived: 4500,
+    warranty: "שנה אחריות Apple Care",
+    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&q=80",
+    stock: 8,
+    popular: true,
+    badge: "BEST SELLER",
+    active: true
+  },
+  {
+    id: "p5",
+    title: "חופשה בדובאי לזוג",
+    description: "3 לילות במלון 5 כוכבים בדובאי, כולל טיסות, ארוחות בוקר ומעבר שדה תעופה",
+    category: "נסיעות",
+    price_tier: 2500,
+    consumer_price: 4500,
+    perceived: 8000,
+    warranty: "ביטוח נסיעות כלול",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    stock: 15,
+    popular: true,
+    badge: "הבחירה המועדפת",
+    active: true
+  },
+  {
+    id: "p6",
+    title: "מכונת קפה DeLonghi",
+    description: "מכונת קפה אוטומטית מלאה עם מטחנה מובנית, קיטור ועד 15 בר לחץ",
+    category: "בית וגינה",
+    price_tier: 1000,
+    consumer_price: 1200,
+    perceived: 1800,
+    warranty: "שנתיים אחריות",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",
+    stock: 6,
+    popular: false,
+    badge: null,
+    active: true
+  },
+  {
+    id: "p7",
+    title: "MacBook Air M3",
+    description: "מחשב נייד Apple M3, 8GB RAM, 256GB SSD, מסך 13.6\", סוללה 18 שעות",
+    category: "אלקטרוניקה",
+    price_tier: 2500,
+    consumer_price: 5499,
+    perceived: 7500,
+    warranty: "שנה אחריות Apple Care",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80",
+    stock: 5,
+    popular: true,
+    badge: "חדש",
+    active: true
+  },
+  {
+    id: "p8",
+    title: "ערכת כושר פרמיום",
+    description: "כדורי כושר, גומיות, מתקן עליות, חגורת הרמה, מדריך אימון דיגיטלי",
+    category: "ספורט",
+    price_tier: 1000,
+    consumer_price: 680,
+    perceived: 1400,
+    warranty: "שנה אחריות",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",
+    stock: 20,
+    popular: false,
+    badge: null,
+    active: true
+  }
+];
+
+export const MOCK_CAMPAIGN = {
+  id: "c1",
+  name: "Q4 2024 - יעדי מכירות",
+  employee_count: 85,
+  success_rate: 78,
+  price_tier: 1000,
+  status: "active",
+  sent_count: 85,
+  opened_count: 71,
+  selected_count: 52,
+  budget_expected: 85000,
+  budget_actual: 52000,
+  deadline_days: 14
+};
+
+export const MOCK_ORDERS = [
+  { id: "o1", employee_name: "רון לוי", employee_email: "ron@company.co.il", product_title: "AirPods Pro 2", price_tier: 1000, perceived: 1800, status: "delivered", selected_at: "2024-01-10T09:00:00Z" },
+  { id: "o2", employee_name: "שירה כהן", employee_email: "shira@company.co.il", product_title: "שובר ספא פרמיום", price_tier: 1000, perceived: 2200, status: "shipped", selected_at: "2024-01-11T14:00:00Z" },
+  { id: "o3", employee_name: "אמיר דוד", employee_email: "amir@company.co.il", product_title: "שעון חכם Galaxy Watch 6", price_tier: 1000, perceived: 1600, status: "ordered", selected_at: "2024-01-12T10:00:00Z" },
+  { id: "o4", employee_name: "מיכל גרין", employee_email: "michal@company.co.il", product_title: "שובר ספא פרמיום", price_tier: 1000, perceived: 2200, status: "pending", selected_at: "2024-01-13T16:00:00Z" },
+  { id: "o5", employee_name: "יוסי אברהם", employee_email: "yossi@company.co.il", product_title: "AirPods Pro 2", price_tier: 1000, perceived: 1800, status: "delivered", selected_at: "2024-01-09T08:00:00Z" },
+];
+
+export const STATUS_LABELS = {
+  pending: "ממתין",
+  ordered: "הוזמן",
+  shipped: "בדרך",
+  delivered: "נמסר"
+};
+
+export const STATUS_COLORS = {
+  pending: "bg-amber-100 text-amber-700",
+  ordered: "bg-blue-100 text-blue-700",
+  shipped: "bg-purple-100 text-purple-700",
+  delivered: "bg-green-100 text-green-700"
+};

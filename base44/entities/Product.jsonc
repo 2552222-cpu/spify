@@ -1,0 +1,64 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\u05d0\u05dc\u05e7\u05d8\u05e8\u05d5\u05e0\u05d9\u05e7\u05d4",
+        "\u05d1\u05d9\u05ea \u05d5\u05d2\u05d9\u05e0\u05d4",
+        "\u05e1\u05e4\u05d5\u05e8\u05d8",
+        "\u05e0\u05e1\u05d9\u05e2\u05d5\u05ea",
+        "\u05d0\u05d5\u05db\u05dc \u05d5\u05e9\u05ea\u05d9\u05d9\u05d4",
+        "\u05d0\u05d5\u05e4\u05e0\u05d4",
+        "\u05d1\u05e8\u05d9\u05d0\u05d5\u05ea"
+      ]
+    },
+    "price_tier": {
+      "type": "number"
+    },
+    "consumer_price": {
+      "type": "number"
+    },
+    "perceived": {
+      "type": "number"
+    },
+    "warranty": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "stock": {
+      "type": "number"
+    },
+    "popular": {
+      "type": "boolean"
+    },
+    "badge": {
+      "type": "string",
+      "enum": [
+        "BEST SELLER",
+        "\u05d4\u05d1\u05d7\u05d9\u05e8\u05d4 \u05d4\u05de\u05d5\u05e2\u05d3\u05e4\u05ea",
+        "\u05d7\u05d3\u05e9",
+        "\u05de\u05d5\u05d2\u05d1\u05dc"
+      ]
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "price_tier",
+    "consumer_price",
+    "perceived"
+  ]
+}
