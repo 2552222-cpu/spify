@@ -35,10 +35,17 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1">
-          <span className={`text-xl font-black tracking-tight ${scrolled ? "text-foreground" : "text-white"}`}>
-            SPIFY
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 flex-shrink-0" />
+          <div className="flex flex-col leading-none">
+            <div className="flex items-center gap-1">
+              <span className={`text-xl font-black tracking-tight ${scrolled ? "text-foreground" : "text-white"}`}>
+                SPIFY
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-0.5 flex-shrink-0" />
+            </div>
+            <span className={`text-[10px] font-medium tracking-widest uppercase ${scrolled ? "text-muted-foreground" : "text-white/60"}`}>
+              make them want it
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Links */}
