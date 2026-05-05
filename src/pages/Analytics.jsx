@@ -10,7 +10,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieCha
 const INSIGHTS = [
   { icon: Clock, text: "80% בחרו מתנה תוך 24 שעות מרגע קבלת ההודעה", color: "text-blue-600", bg: "bg-blue-50" },
   { icon: AlertCircle, text: "12 עובדים לא פתחו את ההודעה — שלח תזכורת", color: "text-amber-600", bg: "bg-amber-50" },
-  { icon: Award, text: "המתנה הפופולרית ביותר: שובר ספא פרמיום (28%)", color: "text-purple-600", bg: "bg-purple-50" },
+  { icon: Award, text: "המתנה הפופולרית ביותר | שובר ספא פרמיום (28%)", color: "text-purple-600", bg: "bg-purple-50" },
   { icon: TrendingUp, text: "ROI גבוה מהממוצע בענף ב-40%", color: "text-green-600", bg: "bg-green-50" },
 ];
 

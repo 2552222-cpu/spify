@@ -330,7 +330,7 @@ export const MOCK_PRODUCTS = [
   {
     id: "p20",
     title: "סט מזוודות קשיחות 4 גדלים",
-    description: 'סט מזוודות TESLA חומר PP: 20"/24"/28"/32" + ביוטיקייס + כרית צוואר לטיסות.',
+    description: 'סט מזוודות TESLA חומר PP: 20" | 24" | 28" | 32" + ביוטיקייס + כרית צוואר לטיסות.',
     category: "נסיעות",
     rewardType: "vacation",
     price_tier: 1000,

@@ -26,7 +26,7 @@ export default function Dashboard() {
               <h1 className="text-4xl font-black">{campaign.name}</h1>
               <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">פעיל</span>
             </div>
-            <p className="text-muted-foreground">{campaign.employee_count} עובדים • {campaign.deadline_days} ימים לסיום</p>
+            <p className="text-muted-foreground">{campaign.employee_count} עובדים | {campaign.deadline_days} ימים לסיום</p>
           </div>
           <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
             <Clock className="w-4 h-4 text-amber-600" />
