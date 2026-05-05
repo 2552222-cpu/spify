@@ -647,6 +647,24 @@ export const MOCK_PRODUCTS = [
     top: false,
   },
 
+  // --- אופניים חשמליים ---
+  {
+    id: "p40",
+    title: "אופניים חשמליים SPARK 48V",
+    description: "אופני SPARK 48V 10HA – מנוע עוצמתי, סוללה 48V/10Ah, טווח עד 35 ק\"מ, שיכוך קידמי הידראולי, בלמים מכניים, משקל 22 ק\"ג.",
+    category: "נסיעות",
+    rewardType: "vacation",
+    price_tier: 2500,
+    consumer_price: 2290,
+    warranty: "12 חודשי אחריות",
+    image: "https://xi-mobility.co.il/cdn/shop/files/1200_1_34.jpg?v=1761050820",
+    stock: 8,
+    popular: true,
+    badge: "חדש",
+    active: true,
+    top: true,
+  },
+
   // --- מחשבים ---
   {
     id: "p39",
