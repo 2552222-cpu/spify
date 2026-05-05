@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import AdminDashboard from "../components/spify/AdminDashboard";
+import ExcelImport from "../components/spify/ExcelImport";
 import { MOCK_ORDERS, STATUS_LABELS, STATUS_COLORS } from "../lib/mockData";
 
 const ADMIN_PASSWORD = "BOOMBUY123";
@@ -202,15 +203,18 @@ export default function Admin() {
         {/* Products Tab */}
         {tab === "products" && (
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
               <h2 className="text-2xl font-black">ניהול מוצרים ({products.length})</h2>
-              <button
-                onClick={openAdd}
-                className="flex items-center gap-2 gradient-primary text-white px-5 py-2.5 rounded-2xl font-semibold text-sm hover:opacity-90 transition-all"
-              >
-                <Plus className="w-4 h-4" />
-                הוסף מוצר
-              </button>
+              <div className="flex items-center gap-3">
+                <ExcelImport onImportDone={loadProducts} />
+                <button
+                  onClick={openAdd}
+                  className="flex items-center gap-2 gradient-primary text-white px-5 py-2.5 rounded-2xl font-semibold text-sm hover:opacity-90 transition-all"
+                >
+                  <Plus className="w-4 h-4" />
+                  הוסף מוצר
+                </button>
+              </div>
             </div>
 
             {loading ? (
