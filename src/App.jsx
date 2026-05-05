@@ -13,6 +13,9 @@ import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Employee from './pages/Employee';
 import Admin from './pages/Admin';
+import Calculator from './pages/Calculator';
+import Terms from './pages/Terms';
+import Logistics from './pages/Logistics';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -42,6 +45,9 @@ const AuthenticatedApp = () => {
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/employee" element={<Employee />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/calculator" element={<Calculator />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/logistics" element={<Logistics />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

@@ -100,6 +100,17 @@ export default function Home() {
                 צפה בקטלוג
               </Link>
             </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
+              <Link to="/calculator" className="bg-white/10 border border-white/20 text-white/80 hover:text-white hover:bg-white/20 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                💰 ראה כמה זה עולה
+              </Link>
+              <Link to="/logistics" className="bg-white/10 border border-white/20 text-white/80 hover:text-white hover:bg-white/20 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                ⚙️ איך זה עובד
+              </Link>
+              <Link to="/terms" className="bg-white/10 border border-white/20 text-white/80 hover:text-white hover:bg-white/20 px-5 py-2 rounded-xl text-sm font-medium transition-all">
+                📋 תנאי עבודה
+              </Link>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
               <div className="text-white/70">
@@ -478,6 +489,10 @@ export default function Home() {
                 <div className="p-4 text-right font-bold text-primary whitespace-pre-line text-xs sm:text-sm">{row.spify}</div>
               </div>
             ))}
+          </div>
+          <div className="mt-6 bg-foreground text-background rounded-2xl p-5 text-center">
+            <p className="font-black text-lg">אנחנו לא זולים יותר</p>
+            <p className="text-background/70 mt-1">אנחנו גורמים לעובדים להתאמץ יותר</p>
           </div>
         </div>
       </section>

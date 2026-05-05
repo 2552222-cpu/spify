@@ -19,8 +19,10 @@ export default function NavBar() {
   const links = [
     { to: "/", label: "בית" },
     { to: "/catalog", label: "קטלוג" },
+    { to: "/calculator", label: "עלויות" },
+    { to: "/logistics", label: "לוגיסטיקה" },
+    { to: "/terms", label: "תנאים" },
     { to: "/dashboard", label: "דשבורד" },
-    { to: "/analytics", label: "אנליטיקס" },
   ];
 
   return (
