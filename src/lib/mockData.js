@@ -506,7 +506,7 @@ export const MOCK_PRODUCTS = [
     price_tier: 2500,
     consumer_price: 3490,
     warranty: "שנה אחריות",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    image: "https://www.hameir.co.il/images/itempics/SauterSlushi_100320261454552.jpg",
     stock: 8,
     popular: true,
     badge: "BEST SELLER",
