@@ -647,6 +647,24 @@ export const MOCK_PRODUCTS = [
     top: false,
   },
 
+  // --- קורקינט חשמלי ---
+  {
+    id: "p41",
+    title: "קורקינט חשמלי Rider Light",
+    description: "קורקינט חשמלי קל במיוחד – 11.8 ק\"ג, סוללה 36V/8Ah, טווח עד 30 ק\"מ, קיפול כפול, בלמים אחוריים, IP54.",
+    category: "נסיעות",
+    rewardType: "vacation",
+    price_tier: 1000,
+    consumer_price: 1290,
+    warranty: "12 חודשי אחריות",
+    image: "https://xi-mobility.co.il/cdn/shop/files/Rider_Scooter_Light_SLIDER_001_013ec382-d962-4e11-93c7-73b063ed42b3.jpg?v=1755066091",
+    stock: 12,
+    popular: true,
+    badge: "BEST SELLER",
+    active: true,
+    top: true,
+  },
+
   // --- אופניים חשמליים ---
   {
     id: "p40",
